@@ -3,156 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090611">
 <title>WAPCHAT</title>
 <style>
-*{box-sizing:border-box}
-:root{--bg:#090611;--panel:#171020;--panel2:#21132d;--purple:#a855f7;--pink:#fb315e;--text:#f7efff;--muted:#aa9bb8;--line:#382444}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-button,input,textarea{font:inherit} button{cursor:pointer;border:0}
-header{padding:17px 18px;background:#120b1b;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
-.logo{font-size:25px;font-weight:900;letter-spacing:1px;color:white} .logo span{color:var(--purple)}
-.small{font-size:12px;color:var(--muted)}
-main{max-width:720px;margin:auto;padding:16px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:15px}
-h2{font-size:19px;margin:0 0 14px}
-input,textarea{width:100%;background:#0e0915;color:white;border:1px solid var(--line);border-radius:10px;padding:13px;margin:6px 0;outline:none}
-input:focus,textarea:focus{border-color:var(--purple)}
-textarea{resize:vertical;min-height:85px}
-.btn{background:linear-gradient(110deg,var(--purple),var(--pink));color:white;padding:12px 17px;border-radius:10px;font-weight:bold}
-.btn2{background:#30203d;color:white;padding:10px 14px;border-radius:10px}
-.full{width:100%;margin-top:8px} .hidden{display:none!important}
-</style>
-<style>
-.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:15px} .tabs button{white-space:nowrap;background:#21132d;color:#cdbbdc;padding:11px 14px;border-radius:10px} .tabs button.active{background:var(--purple);color:white}
-.post{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:13px;overflow:hidden}
-.posthead{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}
-.username{font-weight:bold;color:#e5c8ff} .posttime{font-size:11px;color:var(--muted)}
-.postbody{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
-.post img,.post video{width:100%;max-height:430px;object-fit:contain;background:#08050c;border-radius:12px;margin-top:10px}
-.post audio{width:100%;margin-top:10px}
-.userRow{display:flex;align-items:center;justify-content:space-between;background:#0e0915;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:8px}
-.userRow b{color:#fff} .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(110deg,var(--purple),var(--pink));display:flex;align-items:center;justify-content:center;font-weight:900}
-.chatBox{background:#0e0915;border:1px solid var(--line);border-radius:14px;height:380px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
-.msg{max-width:80%;padding:10px 12px;border-radius:14px;line-height:1.4;white-space:pre-wrap;overflow-wrap:anywhere}
-.msg.mine{align-self:flex-end;background:var(--purple);color:white;border-bottom-right-radius:4px}
-.msg.theirs{align-self:flex-start;background:#2a1a3d;border-bottom-left-radius:4px}
-.msg small{display:block;font-size:10px;opacity:.7;margin-top:4px}
-.chatInput{display:flex;gap:8px;margin-top:10px} .chatInput input{margin:0}
-.cover{width:100%;height:150px;object-fit:cover;border-radius:12px;background:#0e0915;margin-bottom:12px;display:block}
-.coverPlaceholder{height:150px;border-radius:12px;background:linear-gradient(110deg,#2a1a3d,#3a1230);display:flex;align-items:center;justify-content:center;color:#aa9bb8;margin-bottom:12px}
-.note{background:#0e0915;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
-.note b{color:#e5c8ff} .note p{white-space:pre-wrap;margin:6px 0 0}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+*{box-sizing:border-box} body{margin:0;font-family:Arial;background:#0f0a1a;color:#fff}
+.topbar{background:#1a1030;padding:14px;text-align:center;font-size:22px;font-weight:900;letter-spacing:2px;color:#c084fc;position:sticky;top:0;z-index:10}
+.topbar span{color:#fff}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px;background:#160b2a;position:sticky;top:52px;z-index:10}
+.tabs button{white-space:nowrap;border:0;padding:8px 14px;border-radius:20px;background:#2a1a4a;color:#ccc;cursor:pointer}
+.tabs button.active{background:#a855f7;color:#fff;font-weight:700}
+.panel{background:#1c1233;border:1px solid #3a2360;border-radius:14px;padding:14px;margin:12px}
+input,textarea,select{width:100%;padding:11px;border-radius:10px;border:1px solid #3a2360;background:#140b28;color:#fff;margin:6px 0;outline:none}
+.btn{background:#a855f7;color:#fff;border:0;padding:11px;border-radius:10px;width:100%;font-weight:700;cursor:pointer;margin:6px 0}
+.btn2{background:#2a1a4a;color:#fff;border:1px solid #4a2d7a;padding:9px 12px;border-radius:10px;cursor:pointer}
+.full{width:100%} .hidden{display:none!important} .small{font-size:12px;color:#aaa}
+.userRow{display:flex;justify-content:space-between;align-items:center;background:#241640;padding:10px;border-radius:10px;margin:8px 0}
+.post{background:#1c1233;border:1px solid #3a2360;border-radius:14px;padding:14px;margin:12px}
+.post img,.post video{width:100%;border-radius:10px;margin-top:10px}
+.msg{max-width:80%;padding:9px 12px;border-radius:14px;margin:6px 0;word-break:break-word}
+.msg.me{background:#a855f7;margin-left:auto} .msg.other{background:#2a1a4a}
+#coverImg{width:100%;height:140px;object-fit:cover;border-radius:12px}
 </style>
 </head>
 <body>
-<header><div><div class="logo">W<span>AP</span>CHAT</div><div class="small">Connect • Share • Chat</div></div><button id="logoutBtn" class="btn2 hidden">Log out</button></header>
-<main>
-<section id="authSection" class="panel">
-<h2>Welcome to WAPCHAT</h2><p class="small">Sign in or create your account.</p>
-<input id="email" type="email" placeholder="Email address">
-<input id="password" type="password" placeholder="Password">
-<button id="loginBtn" class="btn full">LOG IN</button>
-<button id="registerBtn" class="btn2 full">CREATE ACCOUNT</button>
-<p id="authMessage" class="error"></p>
-</section>
-<section id="appSection" class="hidden">
-<div class="panel"><h2 id="welcome">WAPCHAT Feed</h2><div class="small">Welcome back!</div></div>
-<nav class="tabs">
-<button class="active" data-tab="feed">Home Feed</button>
+<div class="topbar">WAP<span>CHAT</span></div>
+
+<div class="tabs" id="mainTabs">
+<button data-tab="feed" class="active">Home</button>
 <button data-tab="create">Create Post</button>
 <button data-tab="notes">Notes</button>
 <button data-tab="profile">My Profile</button>
 <button data-tab="chat">Chats</button>
 <button data-tab="calls">Calls</button>
-</nav>
+<button data-tab="friends">Friends</button>
+</div>
+<!-- AUTH -->
+<div id="authBox" class="panel">
+<h2>Welcome to WAPCHAT</h2>
+<input id="email" placeholder="Email">
+<input id="password" type="password" placeholder="Password">
+<button id="loginBtn" class="btn">Login</button>
+<button id="signupBtn" class="btn2 full">Create Account</button>
+<p id="authMessage" class="small"></p>
+</div>
 
-<section id="feedTab"><div class="panel"><h2>Community Feed</h2><p class="small">Latest posts from WAPCHAT users.</p></div><div id="feed"></div></section>
+<div id="appBox" class="hidden">
+<!-- 1. FEED -->
+<section id="feedTab"><div id="feed"></div></section>
 
-<section id="createTab" class="hidden">
-<div class="panel"><h2>Create a post</h2>
+<!-- 2. CREATE POST -->
+<section id="createTab" class="hidden"><div class="panel"><h2>Create Post</h2>
 <textarea id="postText" placeholder="What's on your mind?"></textarea>
-<label class="small">Attach a photo or video (optional)</label>
-<input id="mediaFile" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm">
-<label class="small">Attach music / audio (optional)</label>
-<input id="musicFile" type="file" accept="audio/*">
-<label class="small">Or paste music link (YouTube / Spotify / MP3)</label>
-<input id="musicLink" type="text" placeholder="https://...">
-<div id="previewBox"></div>
-<button id="publishBtn" class="btn full">PUBLISH POST</button><p id="postMessage" class="small"></p></div>
-</section>
+<label class="small">Photo / Video</label><input id="mediaFile" type="file" accept="image/*,video/*"><div id="previewBox"></div>
+<label class="small">Music Audio</label><input id="musicFile" type="file" accept="audio/*">
+<label class="small">Or Paste Music Link (YouTube / Spotify)</label><input id="musicLink" placeholder="https://...">
+<button id="publishBtn" class="btn">PUBLISH POST</button><p id="postMessage" class="small"></p>
+</div></section>
+<!-- 3. NOTES -->
+<section id="notesTab" class="hidden"><div class="panel"><h2>My Notes</h2>
+<input id="noteTitle" placeholder="Note title"><textarea id="noteText" placeholder="Write your private note..."></textarea>
+<button id="saveNoteBtn" class="btn">Save Note</button><p id="noteMessage" class="small"></p><div id="notesList"></div>
+</div></section>
 
-<section id="notesTab" class="hidden">
-<div class="panel"><h2>My Notes</h2><p class="small">Private notes, only you can see them.</p>
-<input id="noteTitle" placeholder="Note title">
-<textarea id="noteText" placeholder="Write your note here..."></textarea>
-<button id="saveNoteBtn" class="btn full">SAVE NOTE</button><p id="noteMessage" class="small"></p></div>
-<div id="notesList"></div>
-</section>
-<section id="profileTab" class="hidden">
-<div class="panel"><h2>My Profile</h2>
-<div id="coverWrap"><div class="coverPlaceholder">No cover photo yet</div></div>
-<img id="coverImg" class="cover hidden" alt="Cover">
-<label class="small">Cover Photo</label>
-<input id="coverFile" type="file" accept="image/*">
-<button id="saveCoverBtn" class="btn2 full">UPLOAD COVER PHOTO</button>
-<p class="small" style="margin-top:16px">Profile Info</p>
-<input id="displayName" maxlength="40" placeholder="Your display name">
-<textarea id="bio" maxlength="250" placeholder="Write something about yourself"></textarea>
-<button id="saveProfileBtn" class="btn full">SAVE PROFILE</button><p id="profileMessage" class="small"></p></div>
-</section>
-
+<!-- 4. PROFILE -->
+<section id="profileTab" class="hidden"><div class="panel"><h2>My Profile</h2>
+<img id="coverImg" class="hidden"><div id="coverWrap"><p class="small">No cover yet</p></div>
+<input id="coverFile" type="file" accept="image/*"><button id="saveCoverBtn" class="btn2 full">Save Cover Photo</button><hr>
+<input id="displayName" placeholder="Display Name"><input id="bio" placeholder="Bio">
+<button id="saveProfileBtn" class="btn">SAVE PROFILE</button>
+<button id="logoutBtn" class="btn2 full">Logout</button><p id="profileMessage" class="small"></p>
+</div></section>
+<!-- 5. CHAT - FRIENDS ONLY -->
 <section id="chatTab" class="hidden">
-<div class="panel"><h2>Chats</h2>
-<button id="groupChatBtn" class="btn full">💬 Join WAPCHAT Community Group</button>
-<p class="small" style="margin-top:10px">Tap a user to start private chat:</p><div id="userList"></div></div>
-<div id="chatBoxWrap" class="panel hidden"><h2 id="chatWith">Chat</h2><div id="chatMessages" class="chatBox"></div><div class="chatInput"><input id="chatInput" placeholder="Type a message..."><button id="sendChatBtn" class="btn">Send</button></div><button id="backToUsersBtn" class="btn2 full" style="margin-top:10px">Back to users</button></div>
+<div class="panel"><h2>Chats</h2><p class="small">Friends mo lang ang pwede mo i-chat.</p><div id="chatUserList"></div></div>
+<div class="panel"><h2 id="chatWith">Select a friend to chat</h2><div id="chatMessages" style="max-height:300px;overflow:auto"></div>
+<input id="chatInput" placeholder="Type message..."><button id="sendChatBtn" class="btn">Send</button></div>
+</section>
+<!-- 6. CALLS -->
+<section id="callsTab" class="hidden">
+<div class="panel"><h2>Audio & Video Calls</h2><p class="small">Pili ka ng user para tawagan.</p><div id="callUserList"></div>
+<div id="incomingCallBox" class="hidden" style="background:#2a1a3d;border:1px solid #a855f7;border-radius:12px;padding:14px;margin-top:12px">
+<b id="incomingCallText">Incoming call...</b><br><br><button id="acceptCallBtn" class="btn">Accept</button><button id="declineCallBtn" class="btn2">Decline</button></div></div>
+<div id="activeCallBox" class="panel hidden"><h2 id="callStatus">In Call</h2>
+<video id="remoteVideo" autoplay playsinline style="width:100%;background:#000;border-radius:12px;min-height:200px"></video>
+<video id="localVideo" autoplay muted playsinline style="width:120px;height:90px;object-fit:cover;border-radius:10px;margin-top:-100px;margin-left:10px;border:2px solid #a855f7;position:relative"></video>
+<div style="display:flex;gap:8px;margin-top:12px"><button id="muteBtn" class="btn2 full">Mute</button><button id="cameraBtn" class="btn2 full">Camera Off</button><button id="endCallBtn" class="btn full" style="background:#fb315e">End Call</button></div><p id="callMessage" class="small"></p></div>
+</section>
+<!-- 7. FRIENDS -->
+<section id="friendsTab" class="hidden">
+<div class="panel"><h2>Friend Requests</h2><div id="friendRequests"></div></div>
+<div class="panel"><h2>My Friends</h2><div id="friendsList"></div></div>
+<div class="panel"><h2>Add Friends</h2><div id="addFriendList"></div></div>
 </section>
 
-<section id="callsTab" class="hidden">
-<div class="panel"><h2>Audio & Video Calls</h2><p class="small">Coming soon. Chat muna ayusin natin, calls ang next.</p><button class="btn full" onclick="alert('Calls coming soon in WAPCHAT v2!')">Start Test Call</button></div>
-</section>
-</section>
-</main>
-<footer>WAPCHAT • 2026</footer>
+</div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-const firebaseConfig = { apiKey: "AIzaSyAUduPg1z57zxtmg_5SX6PLIGTrAksVI78", authDomain: "wapchat-7740b.firebaseapp.com", projectId: "wapchat-7740b", storageBucket: "wapchat-7740b.firebasestorage.app", messagingSenderId: "216692723965", appId: "1:216692723965:web:3df3d70d23e2cf6abfae94", measurementId: "G-MGRSN6BEJY" };
-const CLOUD_NAME = "degmouc5"; const UPLOAD_PRESET = "wapchat_upload";
-const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
-const $ = id => document.getElementById(id);
-let currentUser = null, stopFeed = null, selectedFile = null, selectedMusic = null, selectedCover = null;
-let currentChatId = null, stopChat = null, stopNotes = null;
-function message(id, text, isError=false){ $(id).textContent=text; $(id).style.color=isError?"#ff829c":"#b8ffca"; }
-$("loginBtn").addEventListener("click", async()=>{ message("authMessage",""); try{ await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value); } catch(e){ message("authMessage", e.message, true); } });
-$("registerBtn").addEventListener("click", async()=>{ message("authMessage",""); try{ const cred = await createUserWithEmailAndPassword(auth, $("email").value.trim(), $("password").value); await setDoc(doc(db,"users",cred.user.uid),{email:cred.user.email, displayName:cred.user.email.split("@")[0], bio:"", coverUrl:"", createdAt:serverTimestamp()}); }catch(e){ message("authMessage", e.message, true); } });
-$("logoutBtn").addEventListener("click",()=>signOut(auth));
-onAuthStateChanged(auth, async user=>{ currentUser=user; $("authSection").classList.toggle("hidden",!!user); $("appSection").classList.toggle("hidden",!user); $("logoutBtn").classList.toggle("hidden",!user); if(!user){ if(stopFeed) stopFeed(); if(stopNotes) stopNotes(); return; } $("welcome").textContent="Welcome to WAPCHAT"; await loadProfile(); listenToFeed(); loadUsers(); listenToNotes(); });
-async function loadProfile(){ try{ const snap=await getDoc(doc(db,"users",currentUser.uid)); if(snap.exists()){ $("displayName").value=snap.data().displayName||""; $("bio").value=snap.data().bio||""; if(snap.data().coverUrl){ $("coverImg").src=snap.data().coverUrl; $("coverImg").classList.remove("hidden"); $("coverWrap").classList.add("hidden"); } } else $("displayName").value=currentUser.email.split("@")[0]; }catch(e){ message("profileMessage",e.message,true); } }
-$("saveProfileBtn").addEventListener("click", async()=>{ if(!currentUser) return; try{ await setDoc(doc(db,"users",currentUser.uid),{email:currentUser.email, displayName:$("displayName").value.trim().slice(0,40), bio:$("bio").value.trim().slice(0,250)},{merge:true}); message("profileMessage","Profile saved!"); loadUsers();}catch(e){ message("profileMessage",e.message,true); } });
-$("coverFile").addEventListener("change", e=>{ selectedCover=e.target.files[0]||null; });
-$("saveCoverBtn").addEventListener("click", async()=>{ if(!selectedCover) return message("profileMessage","Choose a cover photo first.",true); message("profileMessage","Uploading cover..."); try{ const form=new FormData(); form.append("file",selectedCover); form.append("upload_preset",UPLOAD_PRESET); const res=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,{method:"POST",body:form}); const result=await res.json(); if(!res.ok) throw new Error(result.error?.message||"Upload failed"); await setDoc(doc(db,"users",currentUser.uid),{coverUrl:result.secure_url},{merge:true}); $("coverImg").src=result.secure_url; $("coverImg").classList.remove("hidden"); $("coverWrap").classList.add("hidden"); message("profileMessage","Cover photo saved!"); }catch(e){ message("profileMessage",e.message,true); } });
-$("mediaFile").addEventListener("change", event=>{ selectedFile=event.target.files[0]||null; $("previewBox").replaceChildren(); if(!selectedFile) return; const url=URL.createObjectURL(selectedFile); const preview=document.createElement(selectedFile.type.startsWith("video/")?"video":"img"); preview.id="preview"; preview.src=url; if(selectedFile.type.startsWith("video/")) preview.controls=true; $("previewBox").appendChild(preview); });
-$("musicFile").addEventListener("change", e=>{ selectedMusic=e.target.files[0]||null; });
-async function uploadToCloudinary(file, isVideo=false, isAudio=false){ let type="image"; if(isVideo) type="video"; if(isAudio) type="video"; const endpoint=`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${type}/upload`; const form=new FormData(); form.append("file",file); form.append("upload_preset",UPLOAD_PRESET); if(isAudio) form.append("resource_type","video"); const res=await fetch(endpoint,{method:"POST",body:form}); const result=await res.json(); if(!res.ok) throw new Error(result.error?.message||"Upload failed"); return {mediaUrl:result.secure_url, mediaType:isVideo?"video":isAudio?"audio":"image"}; }
-$("publishBtn").addEventListener("click", async()=>{ if(!currentUser) return; const text=$("postText").value.trim(); const musicLink=$("musicLink").value.trim(); if(!text && !selectedFile && !selectedMusic && !musicLink){ message("postMessage","Write something or choose media.",true); return; } $("publishBtn").disabled=true; message("postMessage","Publishing..."); try{ let media=null, music=null; if(selectedFile) media=await uploadToCloudinary(selectedFile, selectedFile.type.startsWith("video/")); if(selectedMusic){ const up=await uploadToCloudinary(selectedMusic,false,true); music={musicUrl:up.mediaUrl, musicLink:""}; } else if(musicLink){ music={musicUrl:"", musicLink}; } const profile=await getDoc(doc(db,"users",currentUser.uid)); const displayName=profile.exists()?(profile.data().displayName||currentUser.email):currentUser.email; await addDoc(collection(db,"posts"),{uid:currentUser.uid, displayName, text, mediaUrl:media?.mediaUrl||"", mediaType:media?.mediaType||"", musicUrl:music?.musicUrl||"", musicLink:music?.musicLink||"", createdAt:serverTimestamp()}); $("postText").value=""; $("mediaFile").value=""; $("musicFile").value=""; $("musicLink").value=""; $("previewBox").replaceChildren(); selectedFile=null; selectedMusic=null; message("postMessage","Published!"); showTab("feed"); }catch(e){ message("postMessage",e.message,true); } finally{ $("publishBtn").disabled=false; } });
-function listenToFeed(){ if(stopFeed) stopFeed(); const q=query(collection(db,"posts"),orderBy("createdAt","desc")); stopFeed=onSnapshot(q, snap=>{ const feed=$("feed"); feed.replaceChildren(); if(snap.empty){ const d=document.createElement("div"); d.className="panel small"; d.textContent="No posts yet. Be the first!"; feed.appendChild(d); return; } snap.forEach(docSnap=>{ const post=docSnap.data(); const card=document.createElement("article"); card.className="post"; const head=document.createElement("div"); head.className="posthead"; head.innerHTML=`<div><div class="username"></div><div class="posttime">${post.createdAt?.toDate?post.createdAt.toDate().toLocaleString():"Just now"}</div></div>`; head.querySelector(".username").textContent=post.displayName||"WAPCHAT User"; card.appendChild(head); if(post.text){ const b=document.createElement("div"); b.className="postbody"; b.textContent=post.text; card.appendChild(b); } if(post.mediaUrl && post.mediaType==="image"){ const img=document.createElement("img"); img.src=post.mediaUrl; img.loading="lazy"; card.appendChild(img); } if(post.mediaUrl && post.mediaType==="video"){ const v=document.createElement("video"); v.src=post.mediaUrl; v.controls=true; card.appendChild(v); } if(post.musicUrl){ const a=document.createElement("audio"); a.src=post.musicUrl; a.controls=true; card.appendChild(a); } if(post.musicLink){ const link=document.createElement("a"); link.href=post.musicLink; link.target="_blank"; link.style.color="#a855f7"; link.style.display="block"; link.style.marginTop="10px"; link.textContent="🎵 Listen to music"; card.appendChild(link); } feed.appendChild(card); }); }); }
-$("saveNoteBtn").addEventListener("click", async()=>{ if(!currentUser) return; const title=$("noteTitle").value.trim(); const text=$("noteText").value.trim(); if(!title && !text) return message("noteMessage","Write a note first.",true); try{ await addDoc(collection(db,"users",currentUser.uid,"notes"),{title, text, createdAt:serverTimestamp()}); $("noteTitle").value=""; $("noteText").value=""; message("noteMessage","Note saved!"); }catch(e){ message("noteMessage",e.message,true); } });
-function listenToNotes(){ if(stopNotes) stopNotes(); const q=query(collection(db,"users",currentUser.uid,"notes"),orderBy("createdAt","desc")); stopNotes=onSnapshot(q, snap=>{ const list=$("notesList"); list.replaceChildren(); if(snap.empty){ const d=document.createElement("div"); d.className="panel small"; d.textContent="No notes yet. Write your first note!"; list.appendChild(d); return; } snap.forEach(docSnap=>{ const n=docSnap.data(); const div=document.createElement("div"); div.className="note"; const b=document.createElement("b"); b.textContent=n.title||"Untitled"; div.appendChild(b); const p=document.createElement("p"); p.textContent=n.text||""; div.appendChild(p); const sm=document.createElement("div"); sm.className="small"; sm.textContent=n.createdAt?.toDate?n.createdAt.toDate().toLocaleString():""; div.appendChild(sm); const del=document.createElement("button"); del.className="btn2"; del.style.marginTop="8px"; del.textContent="Delete"; del.onclick=async()=>{ await deleteDoc(doc(db,"users",currentUser.uid,"notes",docSnap.id)); }; div.appendChild(del); list.appendChild(div); }); }); }
-async function loadUsers(){ const snap=await getDocs(collection(db,"users")); const list=$("userList"); list.replaceChildren(); snap.forEach(d=>{ if(d.id===currentUser.uid) return; const u=d.data(); const row=document.createElement("div"); row.className="userRow"; row.innerHTML=`<div style="display:flex;gap:10px;align-items:center"><div class="avatar"></div><div><b></b><div class="small">Tap to chat</div></div></div><button class="btn2">Chat</button>`; row.querySelector(".avatar").textContent=(u.displayName||"W").charAt(0).toUpperCase(); row.querySelector("b").textContent=u.displayName||"WAPCHAT User"; row.querySelector("button").onclick=()=>openPrivateChat(d.id, u.displayName||"WAPCHAT User"); list.appendChild(row); }); if(list.children.length===0){ list.innerHTML=`<p class="small">No other users yet. Invite a friend to register!</p>`; } }
-function getPrivateChatId(uid1, uid2){ return [uid1, uid2].sort().join("_"); }
-async function openPrivateChat(otherUid, otherName){ currentChatId = "private_" + getPrivateChatId(currentUser.uid, otherUid); openChatUI("Chat with " + otherName); }
-$("groupChatBtn").addEventListener("click", ()=>{ currentChatId = "group_community"; openChatUI("WAPCHAT Community Group"); });
-function openChatUI(title){ $("chatWith").textContent=title; $("chatBoxWrap").classList.remove("hidden"); $("chatMessages").replaceChildren(); if(stopChat) stopChat(); const q=query(collection(db,"chats",currentChatId,"messages"), orderBy("createdAt","asc")); stopChat=onSnapshot(q, snap=>{ const box=$("chatMessages"); box.replaceChildren(); snap.forEach(d=>{ const m=d.data(); const div=document.createElement("div"); div.className="msg " + (m.uid===currentUser.uid?"mine":"theirs"); div.textContent=""; const span=document.createElement("span"); span.textContent=m.text; div.appendChild(span); const sm=document.createElement("small"); sm.textContent=`${m.displayName||"User"} • ${m.createdAt?.toDate?m.createdAt.toDate().toLocaleTimeString():"..."}`; div.appendChild(sm); box.appendChild(div); }); box.scrollTop=box.scrollHeight; }); }
-async function sendChat(){ const text=$("chatInput").value.trim(); if(!text || !currentChatId) return; const profile=await getDoc(doc(db,"users",currentUser.uid)); const displayName=profile.exists()?(profile.data().displayName||currentUser.email):currentUser.email; await addDoc(collection(db,"chats",currentChatId,"messages"),{uid:currentUser.uid, displayName, text, createdAt:serverTimestamp()}); $("chatInput").value=""; }
-$("sendChatBtn").addEventListener("click", sendChat);
-$("chatInput").addEventListener("keydown", e=>{ if(e.key==="Enter") sendChat(); });
-$("backToUsersBtn").addEventListener("click", ()=>{ $("chatBoxWrap").classList.add("hidden"); if(stopChat) stopChat(); currentChatId=null; });
-function showTab(tab){ ["feed","create","notes","profile","chat","calls"].forEach(n=>$(n+"Tab").classList.toggle("hidden", n!==tab)); document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active", b.dataset.tab===tab)); }
-document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, getDocs, deleteDoc, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// ============ CONFIG - PALITAN MO NG SAYO ============
+const firebaseConfig = { apiKey:"PASTE MO DITO", authDomain:"PASTE MO DITO", projectId:"PASTE MO DITO", storageBucket:"PASTE MO DITO", messagingSenderId:"PASTE MO DITO", appId:"PASTE MO DITO" };
+const CLOUD_NAME="PASTE MO DITO"; const UPLOAD_PRESET="PASTE MO DITO";
+// ================================================
+
+const app=initializeApp(firebaseConfig); const auth=getAuth(app); const db=getFirestore(app);
+const $=id=>document.getElementById(id); let currentUser=null, selectedFile=null, selectedMusic=null, selectedCover=null, currentChatId=null, currentChatUid=null;
+let myFriends=[]; let myPendingSent=[];
+const message=(id,txt,isErr=false)=>{ const el=$(id); if(el){ el.textContent=txt; el.style.color=isErr?"#ff6b6b":"#aaa"; } };
+function getPrivateChatId(a,b){ return [a,b].sort().join("_"); }
+
+// ============ AUTH ============
+$("loginBtn").onclick=async()=>{ try{ await signInWithEmailAndPassword(auth,$("email").value,$("password").value); }catch(e){ message("authMessage",e.message,true); } };
+$("signupBtn").onclick=async()=>{ try{ const c=await createUserWithEmailAndPassword(auth,$("email").value,$("password").value); await setDoc(doc(db,"users",c.user.uid),{displayName:c.user.email.split("@")[0],email:c.user.email,createdAt:serverTimestamp()}); }catch(e){ message("authMessage",e.message,true); } };
+$("logoutBtn").onclick=()=>signOut(auth);
+// ============ TABS ============
+document.querySelectorAll("#mainTabs button").forEach(b=>{ b.onclick=()=>{ document.querySelectorAll("#mainTabs button").forEach(x=>x.classList.remove("active")); b.classList.add("active"); ["feed","create","notes","profile","chat","calls","friends"].forEach(t=>{ $(t+"Tab").classList.toggle("hidden",t!==b.dataset.tab); }); }; });
+
+// ============ PROFILE LOAD + SAVE ============
+async function loadMyProfile(){ if(!currentUser) return; const s=await getDoc(doc(db,"users",currentUser.uid)); if(s.exists()){ const d=s.data(); $("displayName").value=d.displayName||""; $("bio").value=d.bio||""; if(d.coverURL){ $("coverImg").src=d.coverURL; $("coverImg").classList.remove("hidden"); $("coverWrap").innerHTML=""; } } }
+$("saveProfileBtn").onclick=async()=>{ await setDoc(doc(db,"users",currentUser.uid),{displayName:$("displayName").value,bio:$("bio").value,email:currentUser.email},{merge:true}); message("profileMessage","Profile saved!"); };
+// ============ CLOUDINARY ============
+async function uploadToCloudinary(file,resource="auto"){ const fd=new FormData(); fd.append("file",file); fd.append("upload_preset",UPLOAD_PRESET); const r=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resource}/upload`,{method:"POST",body:fd}); const j=await r.json(); if(j.error) throw new Error(j.error.message); return j.secure_url; }
+$("coverFile").onchange=e=>{ selectedCover=e.target.files[0]; if(selectedCover){ $("coverImg").src=URL.createObjectURL(selectedCover); $("coverImg").classList.remove("hidden"); } };
+$("saveCoverBtn").onclick=async()=>{ if(!selectedCover) return message("profileMessage","Pili ka muna ng cover",true); try{ message("profileMessage","Uploading cover..."); const url=await uploadToCloudinary(selectedCover,"image"); await setDoc(doc(db,"users",currentUser.uid),{coverURL:url},{merge:true}); message("profileMessage","Cover saved!"); }catch(e){ message("profileMessage",e.message,true); } };
+// ============ CREATE POST ============
+$("mediaFile").onchange=e=>{ selectedFile=e.target.files[0]; if(!selectedFile) return; if(selectedFile.type.startsWith("video")) $("previewBox").innerHTML=`<video src="${URL.createObjectURL(selectedFile)}" controls style="width:100%;border-radius:12px"></video>`; else $("previewBox").innerHTML=`<img src="${URL.createObjectURL(selectedFile)}" style="width:100%;border-radius:12px">`; };
+$("musicFile").onchange=e=>selectedMusic=e.target.files[0];
+$("publishBtn").onclick=async()=>{ const text=$("postText").value.trim(); if(!text && !selectedFile) return message("postMessage","Lagyan mo ng text o media",true); try{ message("postMessage","Publishing..."); let mediaURL="",mediaType=""; if(selectedFile){ mediaURL=await uploadToCloudinary(selectedFile); mediaType=selectedFile.type.startsWith("video")?"video":"image"; } let musicURL=""; if(selectedMusic) musicURL=await uploadToCloudinary(selectedMusic,"video"); await addDoc(collection(db,"posts"),{text,mediaURL,mediaType,musicURL,musicLink:$("musicLink").value.trim(),uid:currentUser.uid,author:($("displayName").value||currentUser.email),createdAt:serverTimestamp()}); $("postText").value=""; $("musicLink").value=""; $("previewBox").innerHTML=""; selectedFile=null; selectedMusic=null; message("postMessage","Posted!"); document.querySelector('[data-tab="feed"]').click(); }catch(e){ message("postMessage",e.message,true); } };
+// ============ FEED ============
+function renderPost(id,d){ const div=document.createElement("div"); div.className="panel"; div.innerHTML=`<div class="flex"><b>${d.author||"User"}</b><span class="small">${d.createdAt?.toDate().toLocaleString()||""}</span></div><p>${d.text||""}</p>${d.mediaType==="video"?`<video src="${d.mediaURL}" controls style="width:100%;border-radius:12px"></video>`:d.mediaURL?`<img src="${d.mediaURL}" style="width:100%;border-radius:12px">`:""}${d.musicURL?`<audio controls src="${d.musicURL}" style="width:100%"></audio>`:""}${d.musicLink?`<a class="small" href="${d.musicLink}" target="_blank">🎵 Listen to attached music</a><br>`:""}<div class="flex"><button class="btn2" data-like="${id}">❤️ Like</button><span class="small" id="likeCount-${id}"></span></div><div id="comments-${id}"></div><div class="flex"><input id="commentInput-${id}" placeholder="Write a comment..."><button class="btn2" data-comment="${id}">Send</button></div>`; div.querySelector("[data-like]").onclick=()=>toggleLike(id); div.querySelector("[data-comment]").onclick=()=>addComment(id); listenComments(id); listenLikes(id); return div; }
+function loadFeed(){ onSnapshot(query(collection(db,"posts"),orderBy("createdAt","desc")),(snap)=>{ const f=$("feed"); f.innerHTML=""; snap.forEach(d=>f.appendChild(renderPost(d.id,d.data()))); if(!snap.size) f.innerHTML="<p class='small'>No posts yet. Be the first!</p>"; }); }
+async function toggleLike(postId){ const ref=doc(db,"posts",postId,"likes",currentUser.uid); const s=await getDoc(ref); if(s.exists()) await deleteDoc(ref); else await setDoc(ref,{uid:currentUser.uid,createdAt:serverTimestamp()}); }
+function listenLikes(postId){ onSnapshot(collection(db,"posts",postId,"likes"),(s)=>{ const el=$(`likeCount-${postId}`); if(el) el.textContent=s.size+" likes"; }); }
+// ============ COMMENTS ============
+async function addComment(postId){ const inp=$(`commentInput-${postId}`); const text=inp.value.trim(); if(!text) return; await addDoc(collection(db,"posts",postId,"comments"),{text,uid:currentUser.uid,author:($("displayName").value||currentUser.email),createdAt:serverTimestamp()}); inp.value=""; }
+function listenComments(postId){ onSnapshot(query(collection(db,"posts",postId,"comments"),orderBy("createdAt","asc")),(snap)=>{ const box=$(`comments-${postId}`); if(!box) return; box.innerHTML=""; snap.forEach(c=>{ const d=c.data(); const p=document.createElement("p"); p.className="small"; p.innerHTML=`<b>${d.author}:</b> ${d.text}`; box.appendChild(p); }); }); }
+
+// ============ NOTES (PRIVATE) ============
+$("saveNoteBtn").onclick=async()=>{ const title=$("noteTitle").value.trim(); const text=$("noteText").value.trim(); if(!text) return message("noteMessage","Walang laman yung note",true); await addDoc(collection(db,"users",currentUser.uid,"notes"),{title,text,createdAt:serverTimestamp()}); $("noteTitle").value=""; $("noteText").value=""; message("noteMessage","Note saved!"); };
+function loadNotes(){ onSnapshot(query(collection(db,"users",currentUser.uid,"notes"),orderBy("createdAt","desc")),(snap)=>{ const l=$("notesList"); l.innerHTML=""; snap.forEach(d=>{ const n=d.data(); const div=document.createElement("div"); div.className="panel"; div.innerHTML=`<b>${n.title||"Untitled"}</b><p>${n.text}</p><button class="btn2" data-del="${d.id}">Delete</button>`; div.querySelector("[data-del]").onclick=async()=>{ if(confirm("Delete this note?")) await deleteDoc(doc(db,"users",currentUser.uid,"notes",d.id)); }; l.appendChild(div); }); }); }
+// ============ FRIENDS ============
+async function loadFriends(){ onSnapshot(collection(db,"users",currentUser.uid,"friends"),(snap)=>{ myFriends=[]; const list=$("friendsList"); list.innerHTML=""; snap.forEach(d=>{ myFriends.push(d.id); const div=document.createElement("div"); div.className="flex"; div.innerHTML=`<b>${d.data().displayName||d.id}</b><button class="btn2" data-chat="${d.id}">Chat</button><button class="btn2" data-call="${d.id}">Call</button>`; div.querySelector("[data-chat]").onclick=()=>openChat(d.id,d.data().displayName); div.querySelector("[data-call]").onclick=()=>startCall(d.id,d.data().displayName); list.appendChild(div); }); loadChatUserList(); loadCallUserList(); }); }
+async function loadFriendRequests(){ onSnapshot(query(collection(db,"friendRequests"),where("toUid","==",currentUser.uid),where("status","==","pending")),(snap)=>{ const box=$("friendRequests"); box.innerHTML=""; snap.forEach(d=>{ const r=d.data(); const div=document.createElement("div"); div.className="flex"; div.innerHTML=`<b>${r.fromName}</b> wants to be your friend <button class="btn" data-accept="${d.id}">Accept</button><button class="btn2" data-decline="${d.id}">Decline</button>`; div.querySelector("[data-accept]").onclick=()=>respondRequest(d.id,r,"accepted"); div.querySelector("[data-decline]").onclick=()=>respondRequest(d.id,r,"declined"); box.appendChild(div); }); if(!snap.size) box.innerHTML="<p class='small'>No pending requests.</p>"; }); }
+async function respondRequest(reqId,r,status){ await setDoc(doc(db,"friendRequests",reqId),{status},{merge:true}); if(status==="accepted"){ await setDoc(doc(db,"users",currentUser.uid,"friends",r.fromUid),{displayName:r.fromName}); await setDoc(doc(db,"users",r.fromUid,"friends",currentUser.uid),{displayName:($("displayName").value||currentUser.email)}); } }
+async function loadAddFriends(){ onSnapshot(collection(db,"users"),(snap)=>{ const list=$("addFriendList"); list.innerHTML=""; snap.forEach(d=>{ if(d.id===currentUser.uid||myFriends.includes(d.id)) return; const div=document.createElement("div"); div.className="flex"; div.innerHTML=`<b>${d.data().displayName||d.data().email}</b><button class="btn2" data-add="${d.id}">+ Add Friend</button>`; div.querySelector("[data-add]").onclick=()=>sendFriendRequest(d.id,d.data().displayName||d.data().email); list.appendChild(div); }); }); }
+async function sendFriendRequest(toUid,toName){ await addDoc(collection(db,"friendRequests"),{fromUid:currentUser.uid,fromName:($("displayName").value||currentUser.email),toUid,toName,status:"pending",createdAt:serverTimestamp()}); alert("Friend request sent to "+toName); }
+
+// ============ CHAT LIST ============
+function loadChatUserList(){ const box=$("chatUserList"); box.innerHTML=""; myFriends.forEach(fid=>{ const btn=document.createElement("button"); btn.className="btn2"; btn.style.display="block"; btn.style.marginBottom="6px"; btn.textContent="Chat • "+fid.slice(0,8); btn.onclick=()=>openChat(fid,fid); box.appendChild(btn); }); if(!myFriends.length) box.innerHTML="<p class='small'>Add friends first to chat.</p>"; }
+// ============ CHAT MESSAGES ============
+function openChat(uid,name){ currentChatUid=uid; currentChatId=getPrivateChatId(currentUser.uid,uid); $("chatWith").textContent="Chatting with "+name; $("chatMessages").innerHTML=""; onSnapshot(query(collection(db,"chats",currentChatId,"messages"),orderBy("createdAt","asc")),(snap)=>{ const box=$("chatMessages"); box.innerHTML=""; snap.forEach(d=>{ const m=d.data(); const p=document.createElement("p"); p.className="small"; p.innerHTML=`<b>${m.senderName}:</b> ${m.text}`; box.appendChild(p); }); box.scrollTop=box.scrollHeight; }); }
+$("sendChatBtn").onclick=async()=>{ if(!currentChatId) return alert("Pili ka muna ng ka-chat"); const text=$("chatInput").value.trim(); if(!text) return; await addDoc(collection(db,"chats",currentChatId,"messages"),{text,senderUid:currentUser.uid,senderName:($("displayName").value||currentUser.email),createdAt:serverTimestamp()}); $("chatInput").value=""; };
+// ============ CALLS ============
+let localStream=null, peerConn=null, callDocRef=null;
+function loadCallUserList(){ const box=$("callUserList"); box.innerHTML=""; myFriends.forEach(fid=>{ const btn=document.createElement("button"); btn.className="btn2"; btn.style.display="block"; btn.style.marginBottom="6px"; btn.textContent="Call • "+fid.slice(0,8); btn.onclick=()=>startCall(fid,fid); box.appendChild(btn); }); if(!myFriends.length) box.innerHTML="<p class='small'>Add friends first to call.</p>"; }
+async function startCall(friendUid,friendName){ currentChatUid=friendUid; $("callStatus").textContent="Calling "+friendName+"..."; $("callControls").classList.remove("hidden"); localStream=await navigator.mediaDevices.getUserMedia({audio:true,video:true}); $("localVideo").srcObject=localStream; peerConn=new RTCPeerConnection({iceServers:[{urls:"stun:stun.l.google.com:19302"}]}); localStream.getTracks().forEach(t=>peerConn.addTrack(t,localStream)); peerConn.ontrack=e=>{ $("remoteVideo").srcObject=e.streams[0]; }; callDocRef=doc(collection(db,"calls")); peerConn.onicecandidate=e=>{ if(e.candidate) addDoc(collection(callDocRef,"callerCandidates"),e.candidate.toJSON()); }; const offer=await peerConn.createOffer(); await peerConn.setLocalDescription(offer); await setDoc(callDocRef,{offer:{type:offer.type,sdp:offer.sdp},callerUid:currentUser.uid,calleeUid:friendUid,createdAt:serverTimestamp()}); onSnapshot(callDocRef,(s)=>{ const d=s.data(); if(d?.answer && !peerConn.currentRemoteDescription) peerConn.setRemoteDescription(new RTCSessionDescription(d.answer)); }); onSnapshot(collection(callDocRef,"calleeCandidates"),(snap)=>{ snap.docChanges().forEach(c=>{ if(c.type==="added") peerConn.addIceCandidate(new RTCIceCandidate(c.doc.data())); }); }); }
+$("endCallBtn").onclick=async()=>{ try{ peerConn?.close(); localStream?.getTracks().forEach(t=>t.stop()); if(callDocRef) await deleteDoc(callDocRef); }catch(e){} $("callControls").classList.add("hidden"); $("callStatus").textContent="Call ended"; };
+// ============ AUTH STATE + INIT ============
+onAuthStateChanged(auth,async(user)=>{ currentUser=user; if(user){ $("authSection").classList.add("hidden"); $("appSection").classList.remove("hidden"); $("userEmail").textContent=user.email; await loadMyProfile(); loadFeed(); loadNotes(); loadFriends(); loadFriendRequests(); loadAddFriends(); listenIncomingCalls(); }else{ $("authSection").classList.remove("hidden"); $("appSection").classList.add("hidden"); } });
+function listenIncomingCalls(){ onSnapshot(query(collection(db,"calls"),where("calleeUid","==",currentUser.uid)),(snap)=>{ snap.forEach(async(d)=>{ const call=d.data(); if(call.answer) return; if(confirm("Incoming call from "+call.callerUid.slice(0,8)+". Accept?")){ callDocRef=d.ref; $("callStatus").textContent="In call..."; $("callControls").classList.remove("hidden"); document.querySelector('[data-tab="calls"]').click(); localStream=await navigator.mediaDevices.getUserMedia({audio:true,video:true}); $("localVideo").srcObject=localStream; peerConn=new RTCPeerConnection({iceServers:[{urls:"stun:stun.l.google.com:19302"}]}); localStream.getTracks().forEach(t=>peerConn.addTrack(t,localStream)); peerConn.ontrack=e=>{ $("remoteVideo").srcObject=e.streams[0]; }; peerConn.onicecandidate=e=>{ if(e.candidate) addDoc(collection(callDocRef,"calleeCandidates"),e.candidate.toJSON()); }; await peerConn.setRemoteDescription(new RTCSessionDescription(call.offer)); const answer=await peerConn.createAnswer(); await peerConn.setLocalDescription(answer); await setDoc(callDocRef,{answer:{type:answer.type,sdp:answer.sdp}},{merge:true}); onSnapshot(collection(callDocRef,"callerCandidates"),(s)=>{ s.docChanges().forEach(c=>{ if(c.type==="added") peerConn.addIceCandidate(new RTCIceCandidate(c.doc.data())); }); }); } }); }); }
+// ... yung listenIncomingCalls code ...
+
 </script>
 </body>
 </html>
+
