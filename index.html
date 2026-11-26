@@ -123,17 +123,14 @@ function getPrivateChatId(a,b){ return [a,b].sort().join("_"); }
 // ============ AUTH ============
 $("loginBtn").onclick = async (e) => {
   if(e) e.preventDefault();
-  $("authMsg").textContent = "Logging in...";
-  $("loginBtn").disabled = true;
+  alert("Pinindot mo na Login, naglo-login na...");
   try {
     await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
-    $("authMsg").textContent = "Login success!";
+    alert("Login success!");
   } catch(err) {
-    $("authMsg").textContent = err.message;
-    $("loginBtn").disabled = false;
+    alert("Error: " + err.message);
   }
 };
-
  fd.append("file",file); fd.append("upload_preset",UPLOAD_PRESET); const r=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resource}/upload`,{method:"POST",body:fd}); const j=await r.json(); if(j.error) throw new Error(j.error.message); return j.secure_url; }
 $("coverFile").onchange=e=>{ selectedCover=e.target.files[0]; if(selectedCover){ $("coverImg").src=URL.createObjectURL(selectedCover); $("coverImg").classList.remove("hidden"); } };
 $("saveCoverBtn").onclick=async()=>{ if(!selectedCover) return message("profileMessage","Pili ka muna ng cover",true); try{ message("profileMessage","Uploading cover..."); const url=await uploadToCloudinary(selectedCover,"image"); await setDoc(doc(db,"users",currentUser.uid),{coverURL:url},{merge:true}); message("profileMessage","Cover saved!"); }catch(e){ message("profileMessage",e.message,true); } };
