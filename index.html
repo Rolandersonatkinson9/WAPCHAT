@@ -102,8 +102,16 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, on
 import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, getDocs, deleteDoc, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // ============ CONFIG - PALITAN MO NG SAYO ============
-const firebaseConfig = { apiKey:"PASTE MO DITO", authDomain:"PASTE MO DITO", projectId:"PASTE MO DITO", storageBucket:"PASTE MO DITO", messagingSenderId:"PASTE MO DITO", appId:"PASTE MO DITO" };
-const CLOUD_NAME="PASTE MO DITO"; const UPLOAD_PRESET="PASTE MO DITO";
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAUduPg1z57zxtmg_5SX6PLIGTrAksVI78",
+  authDomain: "wapchat-7740b.firebaseapp.com",
+  projectId: "wapchat-7740b",
+  storageBucket: "wapchat-7740b.firebasestorage.app",
+  messagingSenderId: "216692723965",
+  appId: "1:216692723965:web:d4c9325720781a73bfae94",
+  measurementId: "G-M3XFSNF79M"
+};
 // ================================================
 
 const app=initializeApp(firebaseConfig); const auth=getAuth(app); const db=getFirestore(app);
