@@ -1,0 +1,9 @@
+
+{
+  "appId": "com.wapchat.app",
+  "appName": "WAPCHAT",
+  "webDir": ".",
+  "server": {
+    "androidScheme": "https"
+  }
+}
