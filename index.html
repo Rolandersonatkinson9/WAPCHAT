@@ -121,17 +121,20 @@ const message=(id,txt,isErr=false)=>{ const el=$(id); if(el){ el.textContent=txt
 function getPrivateChatId(a,b){ return [a,b].sort().join("_"); }
 
 // ============ AUTH ============
-$("loginBtn").onclick=async()=>{ try{ await signInWithEmailAndPassword(auth,$("email").value,$("password").value); }catch(e){ message("authMessage",e.message,true); } };
-$("signupBtn").onclick=async()=>{ try{ const c=await createUserWithEmailAndPassword(auth,$("email").value,$("password").value); await setDoc(doc(db,"users",c.user.uid),{displayName:c.user.email.split("@")[0],email:c.user.email,createdAt:serverTimestamp()}); }catch(e){ message("authMessage",e.message,true); } };
-$("logoutBtn").onclick=()=>signOut(auth);
-// ============ TABS ============
-document.querySelectorAll("#mainTabs button").forEach(b=>{ b.onclick=()=>{ document.querySelectorAll("#mainTabs button").forEach(x=>x.classList.remove("active")); b.classList.add("active"); ["feed","create","notes","profile","chat","calls","friends"].forEach(t=>{ $(t+"Tab").classList.toggle("hidden",t!==b.dataset.tab); }); }; });
+$("loginBtn").onclick = async (e) => {
+  if(e) e.preventDefault();
+  $("authMsg").textContent = "Logging in...";
+  $("loginBtn").disabled = true;
+  try {
+    await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
+    $("authMsg").textContent = "Login success!";
+  } catch(err) {
+    $("authMsg").textContent = err.message;
+    $("loginBtn").disabled = false;
+  }
+};
 
-// ============ PROFILE LOAD + SAVE ============
-async function loadMyProfile(){ if(!currentUser) return; const s=await getDoc(doc(db,"users",currentUser.uid)); if(s.exists()){ const d=s.data(); $("displayName").value=d.displayName||""; $("bio").value=d.bio||""; if(d.coverURL){ $("coverImg").src=d.coverURL; $("coverImg").classList.remove("hidden"); $("coverWrap").innerHTML=""; } } }
-$("saveProfileBtn").onclick=async()=>{ await setDoc(doc(db,"users",currentUser.uid),{displayName:$("displayName").value,bio:$("bio").value,email:currentUser.email},{merge:true}); message("profileMessage","Profile saved!"); };
-// ============ CLOUDINARY ============
-async function uploadToCloudinary(file,resource="auto"){ const fd=new FormData(); fd.append("file",file); fd.append("upload_preset",UPLOAD_PRESET); const r=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resource}/upload`,{method:"POST",body:fd}); const j=await r.json(); if(j.error) throw new Error(j.error.message); return j.secure_url; }
+ fd.append("file",file); fd.append("upload_preset",UPLOAD_PRESET); const r=await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resource}/upload`,{method:"POST",body:fd}); const j=await r.json(); if(j.error) throw new Error(j.error.message); return j.secure_url; }
 $("coverFile").onchange=e=>{ selectedCover=e.target.files[0]; if(selectedCover){ $("coverImg").src=URL.createObjectURL(selectedCover); $("coverImg").classList.remove("hidden"); } };
 $("saveCoverBtn").onclick=async()=>{ if(!selectedCover) return message("profileMessage","Pili ka muna ng cover",true); try{ message("profileMessage","Uploading cover..."); const url=await uploadToCloudinary(selectedCover,"image"); await setDoc(doc(db,"users",currentUser.uid),{coverURL:url},{merge:true}); message("profileMessage","Cover saved!"); }catch(e){ message("profileMessage",e.message,true); } };
 // ============ CREATE POST ============
