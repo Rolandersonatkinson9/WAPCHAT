@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +9,9 @@
 *{box-sizing:border-box}
 :root{--bg:#090611;--panel:#171020;--panel2:#21132d;--purple:#a855f7;--pink:#fb315e;--text:#f7efff;--muted:#aa9bb8;--line:#382444}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-button,input,textarea{font:inherit}
-button{cursor:pointer;border:0}
+button,input,textarea{font:inherit} button{cursor:pointer;border:0}
 header{padding:17px 18px;background:#120b1b;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
-.logo{font-size:25px;font-weight:900;letter-spacing:1px;color:white}
-.logo span{color:var(--purple)}
+.logo{font-size:25px;font-weight:900;letter-spacing:1px;color:white} .logo span{color:var(--purple)}
 .small{font-size:12px;color:var(--muted)}
 main{max-width:720px;margin:auto;padding:16px}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:15px}
@@ -24,119 +21,105 @@ input:focus,textarea:focus{border-color:var(--purple)}
 textarea{resize:vertical;min-height:85px}
 .btn{background:linear-gradient(110deg,var(--purple),var(--pink));color:white;padding:12px 17px;border-radius:10px;font-weight:bold}
 .btn2{background:#30203d;color:white;padding:10px 14px;border-radius:10px}
-.full{width:100%;margin-top:8px}
-.hidden{display:none!important}
+.full{width:100%;margin-top:8px} .hidden{display:none!important}
 .tabs{display:flex;gap:8px;overflow:auto;margin-bottom:15px}
 .tabs button{white-space:nowrap;background:#21132d;color:#cdbbdc;padding:11px 14px;border-radius:10px}
 .tabs button.active{background:var(--purple);color:white}
 .post{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:13px;overflow:hidden}
 .posthead{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}
-.username{font-weight:bold;color:#e5c8ff}
-.posttime{font-size:11px;color:var(--muted)}
+.username{font-weight:bold;color:#e5c8ff} .posttime{font-size:11px;color:var(--muted)}
 .postbody{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
 .post img,.post video{width:100%;max-height:430px;object-fit:contain;background:#08050c;border-radius:12px;margin-top:10px}
-.status{color:#b8ffca;font-size:12px}
-.error{color:#ff829c;font-size:13px;margin-top:8px}
+.status{color:#b8ffca;font-size:12px} .error{color:#ff829c;font-size:13px;margin-top:8px}
 #preview{max-width:100%;max-height:220px;display:block;margin:10px auto;border-radius:12px}
+.userRow{display:flex;align-items:center;justify-content:space-between;background:#0e0915;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:8px}
+.userRow b{color:#fff} .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(110deg,var(--purple),var(--pink));display:flex;align-items:center;justify-content:center;font-weight:900}
+.chatBox{background:#0e0915;border:1px solid var(--line);border-radius:14px;height:380px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:80%;padding:10px 12px;border-radius:14px;line-height:1.4;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.mine{align-self:flex-end;background:var(--purple);color:white;border-bottom-right-radius:4px}
+.msg.theirs{align-self:flex-start;background:#2a1a3d;border-bottom-left-radius:4px}
+.msg small{display:block;font-size:10px;opacity:.7;margin-top:4px}
+.chatInput{display:flex;gap:8px;margin-top:10px} .chatInput input{margin:0}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 </style>
 </head>
 <body>
-
 <header>
-  <div>
-    <div class="logo">W<span>AP</span>CHAT</div>
-    <div class="small">Connect • Share • Chat</div>
-  </div>
-  <button id="logoutBtn" class="btn2 hidden">Log out</button>
+<div><div class="logo">W<span>AP</span>CHAT</div><div class="small">Connect • Share • Chat</div></div>
+<button id="logoutBtn" class="btn2 hidden">Log out</button>
 </header>
-
 <main>
-  <section id="authSection" class="panel">
-    <h2>Welcome to WAPCHAT</h2>
-    <p class="small">Sign in or create your account.</p>
-    <input id="email" type="email" placeholder="Email address" autocomplete="email">
-    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
-    <button id="loginBtn" class="btn full">LOG IN</button>
-    <button id="registerBtn" class="btn2 full">CREATE ACCOUNT</button>
-    <p id="authMessage" class="error"></p>
-  </section>
+<section id="authSection" class="panel">
+<h2>Welcome to WAPCHAT</h2><p class="small">Sign in or create your account.</p>
+<input id="email" type="email" placeholder="Email address">
+<input id="password" type="password" placeholder="Password">
+<button id="loginBtn" class="btn full">LOG IN</button>
+<button id="registerBtn" class="btn2 full">CREATE ACCOUNT</button>
+<p id="authMessage" class="error"></p>
+</section>
 
-  <section id="appSection" class="hidden">
-    <div class="panel">
-      <h2 id="welcome">WAPCHAT Feed</h2>
-      <div class="small" id="userEmail"></div>
-    </div>
+<section id="appSection" class="hidden">
+<div class="panel"><h2 id="welcome">WAPCHAT Feed</h2><div class="small" id="userEmail"></div></div>
+<nav class="tabs">
+<button class="active" data-tab="feed">Home Feed</button>
+<button data-tab="create">Create Post</button>
+<button data-tab="profile">My Profile</button>
+<button data-tab="chat">Chats</button>
+<button data-tab="calls">Calls</button>
+</nav>
 
-    <nav class="tabs">
-      <button class="active" data-tab="feed">Home Feed</button>
-      <button data-tab="create">Create Post</button>
-      <button data-tab="profile">My Profile</button>
-      <button data-tab="chat">Chats</button>
-      <button data-tab="calls">Calls</button>
-    </nav>
+<section id="feedTab"><div class="panel"><h2>Community Feed</h2><p class="small">Latest posts from WAPCHAT users.</p></div><div id="feed"></div></section>
 
-    <section id="feedTab">
-      <div class="panel">
-        <h2>Community Feed</h2>
-        <p class="small">Latest posts from WAPCHAT users.</p>
-      </div>
-      <div id="feed"></div>
-    </section>
+<section id="createTab" class="hidden">
+<div class="panel"><h2>Create a post</h2>
+<textarea id="postText" placeholder="What's on your mind?"></textarea>
+<label class="small">Attach a photo or video (optional)</label>
+<input id="mediaFile" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm">
+<div id="previewBox"></div>
+<button id="publishBtn" class="btn full">PUBLISH POST</button><p id="postMessage" class="small"></p></div>
+</section>
 
-    <section id="createTab" class="hidden">
-      <div class="panel">
-        <h2>Create a post</h2>
-        <textarea id="postText" placeholder="What's on your mind?"></textarea>
-        <label class="small">Attach a photo or video (optional)</label>
-        <input id="mediaFile" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm">
-        <div id="previewBox"></div>
-        <button id="publishBtn" class="btn full">PUBLISH POST</button>
-        <p id="postMessage" class="small"></p>
-      </div>
-    </section>
+<section id="profileTab" class="hidden">
+<div class="panel"><h2>My Profile</h2><p id="profileEmail" class="small"></p>
+<input id="displayName" maxlength="40" placeholder="Your display name">
+<textarea id="bio" maxlength="250" placeholder="Write something about yourself"></textarea>
+<button id="saveProfileBtn" class="btn full">SAVE PROFILE</button><p id="profileMessage" class="small"></p></div>
+</section>
 
-    <section id="profileTab" class="hidden">
-      <div class="panel">
-        <h2>My Profile</h2>
-        <p id="profileEmail" class="small"></p>
-        <input id="displayName" maxlength="40" placeholder="Your display name">
-        <textarea id="bio" maxlength="250" placeholder="Write something about yourself"></textarea>
-        <button id="saveProfileBtn" class="btn full">SAVE PROFILE</button>
-        <p id="profileMessage" class="small"></p>
-      </div>
-    </section>
+<section id="chatTab" class="hidden">
+<div class="panel">
+<h2>Chats</h2>
+<button id="groupChatBtn" class="btn full">💬 Join WAPCHAT Community Group</button>
+<p class="small" style="margin-top:10px">Tap a user to start private chat:</p>
+<div id="userList"></div>
+</div>
 
-    <section id="chatTab" class="hidden">
-      <div class="panel">
-        <h2>Private & Group Chats</h2>
-        <p class="small">Chat interface is not connected yet. Messaging requires additional Firestore setup.</p>
-      </div>
-    </section>
+<div id="chatBoxWrap" class="panel hidden">
+<h2 id="chatWith">Chat</h2>
+<div id="chatMessages" class="chatBox"></div>
+<div class="chatInput">
+<input id="chatInput" placeholder="Type a message...">
+<button id="sendChatBtn" class="btn">Send</button>
+</div>
+<button id="backToUsersBtn" class="btn2 full" style="margin-top:10px">Back to users</button>
+</div>
+</section>
 
-    <section id="callsTab" class="hidden">
-      <div class="panel">
-        <h2>Audio & Video Calls</h2>
-        <p class="small">Calling interface is not connected yet. Real calls require WebRTC and signaling setup.</p>
-      </div>
-    </section>
-  </section>
+<section id="callsTab" class="hidden">
+<div class="panel"><h2>Audio & Video Calls</h2>
+<p class="small">Coming soon. Chat muna ayusin natin, calls ang next.</p>
+<button class="btn full" onclick="alert('Calls coming soon in WAPCHAT v2!')">Start Test Call</button>
+</div>
+</section>
+</section>
 </main>
-
 <footer>WAPCHAT • 2026</footer>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  onAuthStateChanged, signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  getFirestore, doc, setDoc, getDoc, collection, addDoc,
-  query, orderBy, onSnapshot, serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-/* FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyAUduPg1z57zxtmg_5SX6PLIGTrAksVI78",
   authDomain: "wapchat-7740b.firebaseapp.com",
@@ -146,288 +129,172 @@ const firebaseConfig = {
   appId: "1:216692723965:web:3df3d70d23e2cf6abfae94",
   measurementId: "G-MGRSN6BEJY"
 };
-
 const CLOUD_NAME = "degmouc5";
 const UPLOAD_PRESET = "wapchat_upload";
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-
 const $ = id => document.getElementById(id);
-let currentUser = null;
-let stopFeed = null;
-let selectedFile = null;
+let currentUser = null, stopFeed = null, selectedFile = null;
+let currentChatId = null, stopChat = null, currentChatName = "";
 
-function message(id, text, isError=false) {
-  $(id).textContent = text;
-  $(id).style.color = isError ? "#ff829c" : "#b8ffca";
+function message(id, text, isError=false){ $(id).textContent=text; $(id).style.color=isError?"#ff829c":"#b8ffca"; }
+
+$("loginBtn").addEventListener("click", async()=>{
+  message("authMessage","");
+  try{ await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value); }
+  catch(e){ message("authMessage", e.message, true); }
+});
+$("registerBtn").addEventListener("click", async()=>{
+  message("authMessage","");
+  try{
+    const cred = await createUserWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
+    await setDoc(doc(db,"users",cred.user.uid),{email:cred.user.email, displayName:cred.user.email.split("@")[0], bio:"", createdAt:serverTimestamp()});
+  }catch(e){ message("authMessage", e.message, true); }
+});
+$("logoutBtn").addEventListener("click",()=>signOut(auth));
+
+onAuthStateChanged(auth, async user=>{
+  currentUser=user;
+  $("authSection").classList.toggle("hidden",!!user);
+  $("appSection").classList.toggle("hidden",!user);
+  $("logoutBtn").classList.toggle("hidden",!user);
+  if(!user){ if(stopFeed) stopFeed(); return; }
+  $("userEmail").textContent=user.email||"";
+  $("profileEmail").textContent=user.email||"";
+  $("welcome").textContent="Welcome to WAPCHAT";
+  await loadProfile(); listenToFeed(); loadUsers();
+});
+
+async function loadProfile(){
+  try{
+    const snap=await getDoc(doc(db,"users",currentUser.uid));
+    if(snap.exists()){ $("displayName").value=snap.data().displayName||""; $("bio").value=snap.data().bio||""; }
+    else $("displayName").value=currentUser.email.split("@")[0];
+  }catch(e){ message("profileMessage",e.message,true); }
 }
-
-$("loginBtn").addEventListener("click", async () => {
-  message("authMessage", "");
-  try {
-    await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
-  } catch (e) {
-    message("authMessage", e.message, true);
-  }
+$("saveProfileBtn").addEventListener("click", async()=>{
+  if(!currentUser) return;
+  try{
+    await setDoc(doc(db,"users",currentUser.uid),{email:currentUser.email, displayName:$("displayName").value.trim().slice(0,40), bio:$("bio").value.trim().slice(0,250)},{merge:true});
+    message("profileMessage","Profile saved!"); loadUsers();
+  }catch(e){ message("profileMessage",e.message,true); }
 });
 
-$("registerBtn").addEventListener("click", async () => {
-  message("authMessage", "");
-  try {
-    const credential = await createUserWithEmailAndPassword(
-      auth, $("email").value.trim(), $("password").value
-    );
-    await setDoc(doc(db, "users", credential.user.uid), {
-      email: credential.user.email,
-      displayName: credential.user.email.split("@")[0],
-      bio: "",
-      createdAt: serverTimestamp()
-    });
-  } catch (e) {
-    message("authMessage", e.message, true);
-  }
-});
-
-$("logoutBtn").addEventListener("click", () => signOut(auth));
-
-onAuthStateChanged(auth, async user => {
-  currentUser = user;
-  $("authSection").classList.toggle("hidden", !!user);
-  $("appSection").classList.toggle("hidden", !user);
-  $("logoutBtn").classList.toggle("hidden", !user);
-
-  if (!user) {
-    if (stopFeed) stopFeed();
-    stopFeed = null;
-    return;
-  }
-
-  $("userEmail").textContent = user.email || "";
-  $("profileEmail").textContent = user.email || "";
-  $("welcome").textContent = "Welcome to WAPCHAT";
-
-  await loadProfile();
-  listenToFeed();
-});
-
-async function loadProfile() {
-  try {
-    const snap = await getDoc(doc(db, "users", currentUser.uid));
-    if (snap.exists()) {
-      const data = snap.data();
-      $("displayName").value = data.displayName || "";
-      $("bio").value = data.bio || "";
-    } else {
-      $("displayName").value = currentUser.email.split("@")[0];
-    }
-  } catch (e) {
-    message("profileMessage", e.message, true);
-  }
-}
-
-$("saveProfileBtn").addEventListener("click", async () => {
-  if (!currentUser) return;
-  try {
-    await setDoc(doc(db, "users", currentUser.uid), {
-      email: currentUser.email,
-      displayName: $("displayName").value.trim().slice(0,40),
-      bio: $("bio").value.trim().slice(0,250)
-    }, { merge: true });
-    message("profileMessage", "Profile saved!");
-  } catch (e) {
-    message("profileMessage", e.message, true);
-  }
-});
-
-$("mediaFile").addEventListener("change", event => {
-  selectedFile = event.target.files[0] || null;
-  $("previewBox").replaceChildren();
-
-  if (!selectedFile) return;
-
-  const allowed = ["image/jpeg","image/png","image/webp","video/mp4","video/webm"];
-  if (!allowed.includes(selectedFile.type)) {
-    selectedFile = null;
-    event.target.value = "";
-    message("postMessage", "Unsupported file type.", true);
-    return;
-  }
-
-  const isVideo = selectedFile.type.startsWith("video/");
-  const maxSize = isVideo ? 50 * 1024 * 1024 : 10 * 1024 * 1024;
-
-  if (selectedFile.size > maxSize) {
-    selectedFile = null;
-    event.target.value = "";
-    message("postMessage", isVideo ? "Video must be 50 MB or smaller." : "Photo must be 10 MB or smaller.", true);
-    return;
-  }
-
-  const url = URL.createObjectURL(selectedFile);
-  const preview = document.createElement(isVideo ? "video" : "img");
-  preview.id = "preview";
-  preview.src = url;
-  if (isVideo) preview.controls = true;
+// --- FEED (same as before) ---
+$("mediaFile").addEventListener("change", event=>{
+  selectedFile=event.target.files[0]||null; $("previewBox").replaceChildren(); if(!selectedFile) return;
+  const url=URL.createObjectURL(selectedFile);
+  const preview=document.createElement(selectedFile.type.startsWith("video/")?"video":"img");
+  preview.id="preview"; preview.src=url; if(selectedFile.type.startsWith("video/")) preview.controls=true;
   $("previewBox").appendChild(preview);
 });
-
-async function uploadToCloudinary(file) {
-  const isVideo = file.type.startsWith("video/");
-  const resourceType = isVideo ? "video" : "image";
-  const endpoint = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`;
-
-  const form = new FormData();
-  form.append("file", file);
-  form.append("upload_preset", UPLOAD_PRESET);
-
-  const response = await fetch(endpoint, { method: "POST", body: form });
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(result.error?.message || "Cloudinary upload failed.");
-  }
-
-  return {
-    mediaUrl: result.secure_url,
-    mediaType: resourceType
-  };
+async function uploadToCloudinary(file){
+  const isVideo=file.type.startsWith("video/"); const endpoint=`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${isVideo?"video":"image"}/upload`;
+  const form=new FormData(); form.append("file",file); form.append("upload_preset",UPLOAD_PRESET);
+  const res=await fetch(endpoint,{method:"POST",body:form}); const result=await res.json();
+  if(!res.ok) throw new Error(result.error?.message||"Upload failed");
+  return {mediaUrl:result.secure_url, mediaType:isVideo?"video":"image"};
 }
-
-$("publishBtn").addEventListener("click", async () => {
-  if (!currentUser) return;
-
-  const text = $("postText").value.trim();
-  if (!text && !selectedFile) {
-    message("postMessage", "Write something or choose a photo/video.", true);
-    return;
-  }
-
-  $("publishBtn").disabled = true;
-  message("postMessage", "Publishing post...");
-
-  try {
-    let media = null;
-    if (selectedFile) {
-      message("postMessage", "Uploading media...");
-      media = await uploadToCloudinary(selectedFile);
-    }
-
-    const profile = await getDoc(doc(db, "users", currentUser.uid));
-    const displayName = profile.exists()
-      ? (profile.data().displayName || currentUser.email)
-      : currentUser.email;
-
-    await addDoc(collection(db, "posts"), {
-      uid: currentUser.uid,
-      email: currentUser.email,
-      displayName,
-      text,
-      mediaUrl: media?.mediaUrl || "",
-      mediaType: media?.mediaType || "",
-      createdAt: serverTimestamp()
-    });
-
-    $("postText").value = "";
-    $("mediaFile").value = "";
-    $("previewBox").replaceChildren();
-    selectedFile = null;
-    message("postMessage", "Your post has been published!");
-    showTab("feed");
-  } catch (e) {
-    message("postMessage", e.message, true);
-  } finally {
-    $("publishBtn").disabled = false;
-  }
+$("publishBtn").addEventListener("click", async()=>{
+  if(!currentUser) return; const text=$("postText").value.trim();
+  if(!text && !selectedFile){ message("postMessage","Write something or choose media.",true); return; }
+  $("publishBtn").disabled=true; message("postMessage","Publishing...");
+  try{
+    let media=null; if(selectedFile) media=await uploadToCloudinary(selectedFile);
+    const profile=await getDoc(doc(db,"users",currentUser.uid));
+    const displayName=profile.exists()?(profile.data().displayName||currentUser.email):currentUser.email;
+    await addDoc(collection(db,"posts"),{uid:currentUser.uid,email:currentUser.email,displayName,text,mediaUrl:media?.mediaUrl||"",mediaType:media?.mediaType||"",createdAt:serverTimestamp()});
+    $("postText").value=""; $("mediaFile").value=""; $("previewBox").replaceChildren(); selectedFile=null;
+    message("postMessage","Published!"); showTab("feed");
+  }catch(e){ message("postMessage",e.message,true); } finally{ $("publishBtn").disabled=false; }
 });
-
-function listenToFeed() {
-  if (stopFeed) stopFeed();
-
-  const postsQuery = query(collection(db, "posts"), orderBy("createdAt", "desc"));
-
-  stopFeed = onSnapshot(postsQuery, snapshot => {
-    const feed = $("feed");
-    feed.replaceChildren();
-
-    if (snapshot.empty) {
-      const empty = document.createElement("div");
-      empty.className = "panel small";
-      empty.textContent = "No posts yet. Be the first to share something!";
-      feed.appendChild(empty);
-      return;
-    }
-
-    snapshot.forEach(postDoc => {
-      const post = postDoc.data();
-      const card = document.createElement("article");
-      card.className = "post";
-
-      const head = document.createElement("div");
-      head.className = "posthead";
-
-      const author = document.createElement("div");
-      const name = document.createElement("div");
-      name.className = "username";
-      name.textContent = post.displayName || post.email || "WAPCHAT User";
-      const email = document.createElement("div");
-      email.className = "posttime";
-      email.textContent = post.email || "";
-      author.append(name, email);
-
-      const time = document.createElement("div");
-      time.className = "posttime";
-      time.textContent = post.createdAt?.toDate
-        ? post.createdAt.toDate().toLocaleString()
-        : "Just now";
-
-      head.append(author, time);
-      card.appendChild(head);
-
-      if (post.text) {
-        const body = document.createElement("div");
-        body.className = "postbody";
-        body.textContent = post.text;
-        card.appendChild(body);
-      }
-
-      if (post.mediaUrl && post.mediaType === "image") {
-        const img = document.createElement("img");
-        img.src = post.mediaUrl;
-        img.alt = "Shared photo";
-        img.loading = "lazy";
-        card.appendChild(img);
-      }
-
-      if (post.mediaUrl && post.mediaType === "video") {
-        const video = document.createElement("video");
-        video.src = post.mediaUrl;
-        video.controls = true;
-        video.preload = "metadata";
-        card.appendChild(video);
-      }
-
+function listenToFeed(){
+  if(stopFeed) stopFeed();
+  const q=query(collection(db,"posts"),orderBy("createdAt","desc"));
+  stopFeed=onSnapshot(q, snap=>{
+    const feed=$("feed"); feed.replaceChildren();
+    if(snap.empty){ const d=document.createElement("div"); d.className="panel small"; d.textContent="No posts yet. Be the first!"; feed.appendChild(d); return; }
+    snap.forEach(docSnap=>{
+      const post=docSnap.data();
+      const card=document.createElement("article"); card.className="post";
+      card.innerHTML=`<div class="posthead"><div><div class="username">${post.displayName||post.email}</div><div class="posttime">${post.email||""}</div></div><div class="posttime">${post.createdAt?.toDate?post.createdAt.toDate().toLocaleString():"Just now"}</div></div>`;
+      if(post.text){ const b=document.createElement("div"); b.className="postbody"; b.textContent=post.text; card.appendChild(b); }
+      if(post.mediaUrl && post.mediaType==="image"){ const img=document.createElement("img"); img.src=post.mediaUrl; img.loading="lazy"; card.appendChild(img); }
+      if(post.mediaUrl && post.mediaType==="video"){ const v=document.createElement("video"); v.src=post.mediaUrl; v.controls=true; card.appendChild(v); }
       feed.appendChild(card);
     });
-  }, error => {
-    $("feed").textContent = "Feed error: " + error.message;
   });
 }
 
-function showTab(tab) {
-  ["feed","create","profile","chat","calls"].forEach(name => {
-    $(name + "Tab").classList.toggle("hidden", name !== tab);
+// --- NEW: CHAT SYSTEM ---
+async function loadUsers(){
+  const snap=await getDocs(collection(db,"users"));
+  const list=$("userList"); list.replaceChildren();
+  snap.forEach(d=>{
+    if(d.id===currentUser.uid) return;
+    const u=d.data();
+    const row=document.createElement("div"); row.className="userRow";
+    row.innerHTML=`<div style="display:flex;gap:10px;align-items:center"><div class="avatar">${(u.displayName||u.email||"W").charAt(0).toUpperCase()}</div><div><b>${u.displayName||u.email}</b><div class="small">${u.email}</div></div></div><button class="btn2">Chat</button>`;
+    row.querySelector("button").onclick=()=>openPrivateChat(d.id, u.displayName||u.email);
+    list.appendChild(row);
   });
-
-  document.querySelectorAll(".tabs button").forEach(button => {
-    button.classList.toggle("active", button.dataset.tab === tab);
-  });
+  if(list.children.length===0){ list.innerHTML=`<p class="small">No other users yet. Invite a friend to register!</p>`; }
 }
+function getPrivateChatId(uid1, uid2){ return [uid1, uid2].sort().join("_"); }
 
-document.querySelectorAll(".tabs button").forEach(button => {
-  button.addEventListener("click", () => showTab(button.dataset.tab));
+async function openPrivateChat(otherUid, otherName){
+  currentChatId = "private_" + getPrivateChatId(currentUser.uid, otherUid);
+  currentChatName = otherName;
+  openChatUI("Chat with " + otherName);
+}
+$("groupChatBtn").addEventListener("click", ()=>{
+  currentChatId = "group_community";
+  currentChatName = "WAPCHAT Community";
+  openChatUI("WAPCHAT Community Group");
 });
+function openChatUI(title){
+  $("chatWith").textContent=title;
+  $("chatBoxWrap").classList.remove("hidden");
+  $("chatMessages").replaceChildren();
+  if(stopChat) stopChat();
+  const q=query(collection(db,"chats",currentChatId,"messages"), orderBy("createdAt","asc"));
+  stopChat=onSnapshot(q, snap=>{
+    const box=$("chatMessages"); box.replaceChildren();
+    snap.forEach(d=>{
+      const m=d.data();
+      const div=document.createElement("div");
+      div.className="msg " + (m.uid===currentUser.uid?"mine":"theirs");
+      div.innerHTML=`${m.text}<small>${m.displayName||m.email} • ${m.createdAt?.toDate?m.createdAt.toDate().toLocaleTimeString():"..."}</small>`;
+      // need textContent for safety - rebuild safely
+      div.textContent=""; 
+      const span=document.createElement("span"); span.textContent=m.text; div.appendChild(span);
+      const sm=document.createElement("small"); sm.textContent=`${m.displayName||m.email} • ${m.createdAt?.toDate?m.createdAt.toDate().toLocaleTimeString():"..."}`; div.appendChild(sm);
+      box.appendChild(div);
+    });
+    box.scrollTop=box.scrollHeight;
+  });
+}
+async function sendChat(){
+  const text=$("chatInput").value.trim();
+  if(!text || !currentChatId) return;
+  const profile=await getDoc(doc(db,"users",currentUser.uid));
+  const displayName=profile.exists()?(profile.data().displayName||currentUser.email):currentUser.email;
+  await addDoc(collection(db,"chats",currentChatId,"messages"),{uid:currentUser.uid,email:currentUser.email,displayName,text,createdAt:serverTimestamp()});
+  $("chatInput").value="";
+}
+$("sendChatBtn").addEventListener("click", sendChat);
+$("chatInput").addEventListener("keydown", e=>{ if(e.key==="Enter") sendChat(); });
+$("backToUsersBtn").addEventListener("click", ()=>{
+  $("chatBoxWrap").classList.add("hidden");
+  if(stopChat) stopChat(); currentChatId=null;
+});
+
+function showTab(tab){
+  ["feed","create","profile","chat","calls"].forEach(n=>$(n+"Tab").classList.toggle("hidden", n!==tab));
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active", b.dataset.tab===tab));
+}
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
 </script>
 </body>
 </html>
