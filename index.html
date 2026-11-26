@@ -147,78 +147,179 @@ nav button.active{color:#d8a5ff}
 </nav>
 </div>
 
-<script>
-function signup(){
- let u=document.getElementById('username').value.trim();
- let p=document.getElementById('password').value;
- if(!u||!p){alert('Enter a username and password.');return}
- localStorage.setItem('wap_user',u);
- localStorage.setItem('wap_pass',p);
- alert('Demo account created! You can now log in.');
-}
-function login(){
- let u=document.getElementById('username').value.trim();
- let p=document.getElementById('password').value;
- if(u===localStorage.getItem('wap_user')&&p===localStorage.getItem('wap_pass')){
-  document.getElementById('auth').style.display='none';
-  document.getElementById('app').style.display='block';
-  document.getElementById('profileName').textContent=u;
- }else{alert('Account not found. Create a demo account first.')}
-}
-function logout(){
- document.getElementById('app').style.display='none';
- document.getElementById('auth').style.display='block';
-}
-function showPage(id,btn){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
- btn.classList.add('active');
-}
-function shareNote(){
- let t=document.getElementById('noteText').value.trim();
- if(!t)return;
- let d=document.createElement('div');
- d.className='card';
- d.textContent=t;
- document.getElementById('feed').prepend(d);
- document.getElementById('noteText').value='';
-}
-function sendMessage(){
- let t=document.getElementById('chatText').value.trim();
- if(!t)return;
- let d=document.createElement('div');
- d.className='message mine';
- d.textContent=t;
- document.getElementById('messages').appendChild(d);
- document.getElementById('chatText').value='';
-}
-function createPost(){
- let f=document.getElementById('media').files[0];
- let c=document.getElementById('caption').value;
- if(!f&&!c){alert('Add a caption or choose a photo/video.');return}
- let card=document.createElement('div');
- card.className='card post';
- let caption=document.createElement('p');
- caption.textContent=c;
- card.appendChild(caption);
- if(f){
-  let url=URL.createObjectURL(f);
-  let el=document.createElement(f.type.startsWith('video/')?'video':'img');
-  el.src=url;
-  if(el.tagName==='VIDEO')el.controls=true;
-  card.appendChild(el);
- }
- document.getElementById('feed').prepend(card);
- document.getElementById('caption').value='';
- document.getElementById('media').value='';
-}
-function saveBio(){
- alert('Profile bio saved in this demo.');
-}
-function callInfo(){
- alert('Audio and video calls will be activated after we connect the online calling service.');
-}
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAUduPg1z57zxtmg_5SX6PLIGTrAksVI78",
+  authDomain: "wapchat-7740b.firebaseapp.com",
+  projectId: "wapchat-7740b",
+  storageBucket: "wapchat-7740b.firebasestorage.app",
+  messagingSenderId: "216692723965",
+  appId: "1:216692723965:web:3df3d70d23e2cf6abfae94",
+  measurementId: "G-MGRSN6BEJY"
+};
+
+const appFirebase = initializeApp(firebaseConfig);
+const auth = getAuth(appFirebase);
+const db = getFirestore(appFirebase);
+
+window.signup = async function() {
+  const email = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("Enter your email and password.");
+    return;
+  }
+
+  try {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+
+    await setDoc(doc(db, "users", result.user.uid), {
+      email: email,
+      username: email.split("@")[0],
+      createdAt: serverTimestamp()
+    });
+
+    alert("WAPCHAT account created successfully!");
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+window.login = async function() {
+  const email = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (!email || !password) {
+    alert("Enter your email and password.");
+    return;
+  }
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+window.logout = async function() {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+onAuthStateChanged(auth, user => {
+  const authScreen = document.getElementById("auth");
+  const appScreen = document.getElementById("app");
+
+  if (user) {
+    authScreen.style.display = "none";
+    appScreen.style.display = "block";
+    document.getElementById("profileName").textContent =
+      user.email.split("@")[0];
+  } else {
+    authScreen.style.display = "block";
+    appScreen.style.display = "none";
+  }
+});
+
+window.showPage = function(id, btn) {
+  document.querySelectorAll(".page").forEach(p =>
+    p.classList.remove("active")
+  );
+
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll("nav button").forEach(b =>
+    b.classList.remove("active")
+  );
+
+  btn.classList.add("active");
+};
+
+window.shareNote = function() {
+  const t = document.getElementById("noteText").value.trim();
+  if (!t) return;
+
+  const d = document.createElement("div");
+  d.className = "card";
+  d.textContent = t;
+
+  document.getElementById("feed").prepend(d);
+  document.getElementById("noteText").value = "";
+};
+
+window.sendMessage = function() {
+  const t = document.getElementById("chatText").value.trim();
+  if (!t) return;
+
+  const d = document.createElement("div");
+  d.className = "message mine";
+  d.textContent = t;
+
+  document.getElementById("messages").appendChild(d);
+  document.getElementById("chatText").value = "";
+};
+
+window.createPost = function() {
+  const f = document.getElementById("media").files[0];
+  const c = document.getElementById("caption").value;
+
+  if (!f && !c) {
+    alert("Add a caption or choose a photo/video.");
+    return;
+  }
+
+  const card = document.createElement("div");
+  card.className = "card post";
+
+  const caption = document.createElement("p");
+  caption.textContent = c;
+  card.appendChild(caption);
+
+  if (f) {
+    const url = URL.createObjectURL(f);
+    const el = document.createElement(
+      f.type.startsWith("video/") ? "video" : "img"
+    );
+    el.src = url;
+    if (el.tagName === "VIDEO") el.controls = true;
+    card.appendChild(el);
+  }
+
+  document.getElementById("feed").prepend(card);
+  document.getElementById("caption").value = "";
+  document.getElementById("media").value = "";
+};
+
+window.saveBio = function() {
+  alert("Profile bio saving will be connected next.");
+};
+
+window.callInfo = function() {
+  alert("Calling service will be connected next.");
+};
 </script>
+
 </body>
 </html>
