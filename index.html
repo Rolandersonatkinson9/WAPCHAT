@@ -4,137 +4,200 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WAPCHAT</title>
+<meta name="theme-color" content="#090611">
+<title>WAPCHAT</
+title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#08070d;color:white;font-family:Arial,sans-serif}
-:root{--purple:#a855f7;--red:#ff3155}
-header{padding:20px;background:#100c19;border-bottom:1px solid #382044;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:27px;font-weight:900;color:#c084fc}
+:root{
+ --bg:#090611;--panel:#171020;--panel2:#21132d;
+ --purple:#a855f7;--pink:#d879ff;--red:#ff3155;
+ --text:#fff;--muted:#aaa0b8;--line:#452653;
+}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{
+ position:sticky;top:0;z-index:5;padding:16px;
+ background:#120c1df2;border-bottom:1px solid var(--line);
+ display:flex;justify-content:space-between;align-items:center;
+ backdrop-filter:blur(12px)
+}
+.logo{font-size:26px;font-weight:900;letter-spacing:1px;color:var(--pink)}
 .logo span{color:var(--red)}
-main{max-width:600px;margin:auto;padding:16px;padding-bottom:90px}
-h2{color:#d8b4fe}
-.card{background:#15111e;border:1px solid #392347;border-radius:15px;padding:16px;margin:14px 0}
-input,textarea{width:100%;padding:13px;margin:7px 0;background:#090811;color:white;border:1px solid #674080;border-radius:9px;font-size:15px}
-button{background:linear-gradient(110deg,#8b35df,#ed3159);border:0;color:white;padding:12px 17px;border-radius:9px;font-weight:bold;cursor:pointer}
-button.secondary{background:#292033;border:1px solid #75449a}
-button:active{opacity:.7}
-nav{position:fixed;bottom:0;left:0;right:0;background:#120d1b;border-top:1px solid #49305a;display:flex;justify-content:space-around;padding:12px 3px;z-index:5}
-nav button{background:transparent;padding:9px 5px;font-size:12px}
-nav button.active{color:#d8a5ff}
+.pill{font-size:10px;padding:7px 10px;border-radius:20px;background:#382047;color:#e5b9ff}
+main{max-width:650px;margin:auto;padding:15px 15px 100px}
+h2{color:#e2b8ff;margin-top:10px}
+h3{margin-top:5px}
+.card{
+ background:linear-gradient(145deg,#1d1429,#120e1b);
+ border:1px solid var(--line);border-radius:18px;
+ padding:17px;margin:14px 0;
+ box-shadow:0 8px 25px #0005
+}
+input,textarea{
+ width:100%;padding:14px;margin:7px 0;
+ background:#0b0812;color:white;border:1px solid #674080;
+ border-radius:11px;font-size:15px;outline:none
+}
+input:focus,textarea:focus{border-color:var(--pink)}
+textarea{resize:vertical;min-height:90px}
+button{
+ border:0;border-radius:11px;padding:13px 17px;
+ background:linear-gradient(110deg,#9135e8,#ed3159);
+ color:white;font-weight:bold;cursor:pointer
+}
+button:disabled{opacity:.5}
+.secondary{background:#2b2035;border:1px solid #75449a}
+.full{width:100%}
+.muted{color:var(--muted);font-size:13px;line-height:1.5}
+.center{text-align:center}
+#auth{max-width:480px;margin:25px auto;padding:12px}
+#app{display:none}
+.avatar{
+ width:78px;height:78px;border-radius:50%;
+ display:grid;place-items:center;margin:14px auto;
+ font-size:30px;font-weight:900;
+ background:linear-gradient(135deg,#a855f7,#ff3155);
+ border:3px solid #d879ff
+}
 .page{display:none}
 .page.active{display:block}
-.muted{color:#aaa;font-size:13px}
-.post img,.post video{width:100%;border-radius:10px;margin-top:10px}
-.pill{display:inline-block;background:#382047;color:#d8b4fe;padding:6px 10px;border-radius:20px;font-size:12px}
-.message{padding:12px;margin:8px 0;border-radius:12px;background:#30203d;max-width:85%}
+nav{
+ position:fixed;bottom:0;left:0;right:0;z-index:10;
+ display:flex;justify-content:space-around;gap:2px;
+ padding:9px 2px calc(9px + env(safe-area-inset-bottom));
+ background:#120d1bf5;border-top:1px solid var(--line);
+ backdrop-filter:blur(12px)
+}
+nav button{background:transparent;padding:8px 4px;font-size:11px;flex:1;color:#b9a9c5}
+nav button.active{color:#f0c7ff;background:#382047;border-radius:10px}
+.post{white-space:pre-wrap;overflow-wrap:anywhere}
+.posthead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.miniavatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#a855f7,#ff3155);font-weight:bold}
+.message{padding:12px;margin:9px 0;border-radius:13px;background:#30203d;max-width:85%}
 .mine{margin-left:auto;background:#702c83}
-#app{display:none}
-.center{text-align:center;padding-top:50px}
-.avatar{width:65px;height:65px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#ff3155);display:grid;place-items:center;font-size:27px;margin:10px auto}
-.row{display:flex;gap:9px;align-items:center}
+.row{display:flex;gap:8px;align-items:center}
 .row input{flex:1;min-width:0}
+.status{font-size:12px;color:#9ce8b0}
+hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+.empty{text-align:center;color:var(--muted);padding:25px 8px}
+.post img,.post video{width:100%;border-radius:12px;margin-top:10px}
 </style>
 </head>
 <body>
 
 <header>
  <div class="logo">W<span>AP</span>CHAT</div>
- <span class="pill">CONNECT • CHAT • SHARE</span>
+ <span class="pill">NEW BUILD 2026</span>
 </header>
 
 <section id="auth" class="center">
- <div class="card" style="margin:20px">
+ <div class="card">
   <div class="logo">W<span>AP</span>CHAT</div>
   <div class="avatar">W</div>
-  <h2 id="authTitle">Welcome Back!</h2>
-  <p class="muted">Connect with everyone.</p>
-  <input id="username" placeholder="Username">
-  <input id="password" type="password" placeholder="Password">
-  <button style="width:100%" onclick="login()">LOGIN</button>
-  <p class="muted">New here?</p>
-  <button class="secondary" onclick="signup()">CREATE ACCOUNT</button>
-  <p class="muted">Demo only: account information stays on this device.</p>
+  <h2 id="authTitle">Welcome Back</h2>
+  <p class="muted">Connect. Chat. Share.</p>
+  <input id="email" type="email" placeholder="Email address" autocomplete="email">
+  <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+  <button class="full" id="loginBtn" onclick="login()">LOGIN</button>
+  <p class="muted">New to WAPCHAT?</p>
+  <button class="secondary full" id="signupBtn" onclick="signup()">CREATE ACCOUNT</button>
+  <p id="authStatus" class="muted"></p>
  </div>
 </section>
 
 <div id="app">
 <main>
- <section id="home" class="page active">
-  <h2>Home Feed</h2>
-  <div class="card">
-   <h3>Share a Note</h3>
-   <textarea id="noteText" placeholder="What's on your mind?"></textarea>
-   <button onclick="shareNote()">Share Note</button>
-  </div>
-  <div id="feed"></div>
- </section>
 
- <section id="chats" class="page">
-  <h2>Messages</h2>
-  <div class="card">
-   <h3>Private Chat</h3>
-   <p class="muted">Demo conversation</p>
-   <div id="messages">
-    <div class="message">Welcome to WAPCHAT!</div>
-   </div>
-   <div class="row">
-    <input id="chatText" placeholder="Write a message...">
-    <button onclick="sendMessage()">SEND</button>
-   </div>
-  </div>
-  <div class="card">
-   <h3>Group Chat</h3>
-   <p class="muted">Group chat interface preview</p>
-   <button onclick="alert('Online group chat will need a server.')">Open Group Chat</button>
-  </div>
- </section>
+<section id="home" class="page active">
+ <h2>Home Feed</h2>
+ <p class="muted">See what's happening in your WAPCHAT community.</p>
+ <div class="card">
+  <h3>Share a Note</h3>
+  <textarea id="noteText" maxlength="1000" placeholder="What's on your mind?"></textarea>
+  <button class="full" onclick="shareNote()">＋ SHARE NOTE</button>
+ </div>
+ <div id="feed"><div class="empty">Loading your feed...</div></div>
+</section>
 
- <section id="create" class="page">
-  <h2>Create a Post</h2>
-  <div class="card">
-   <textarea id="caption" placeholder="Write a caption..."></textarea>
-   <input type="file" id="media" accept="image/*,video/*">
-   <button onclick="createPost()">SHARE POST</button>
-   <p class="muted">Local preview only in this demo.</p>
+<section id="chats" class="page">
+ <h2>Messages</h2>
+ <div class="card">
+  <span class="pill">PRIVATE CHAT</span>
+  <h3>Private Messages</h3>
+  <p class="muted">Your chat interface. Real private messaging will be enabled after secure chat membership rules are configured.</p>
+  <div id="messages">
+   <div class="empty">Your conversations will appear here.</div>
   </div>
- </section>
+  <div class="row">
+   <input id="chatText" placeholder="Write a message..." disabled>
+   <button disabled>SEND</button>
+  </div>
+ </div>
+ <div class="card">
+  <span class="pill">GROUP CHAT</span>
+  <h3>Group Conversations</h3>
+  <p class="muted">Create groups and talk with friends. Group messaging will be connected after membership permissions are secured.</p>
+ </div>
+</section>
 
- <section id="calls" class="page">
-  <h2>Calls</h2>
-  <div class="card">
-   <h3>Audio Call</h3>
-   <p class="muted">Voice calling feature</p>
-   <button onclick="callInfo()">Start Audio Call</button>
-  </div>
-  <div class="card">
-   <h3>Video Call</h3>
-   <p class="muted">Video calling feature</p>
-   <button onclick="callInfo()">Start Video Call</button>
-  </div>
-  <p class="muted">Real calls require WebRTC and an online calling service.</p>
- </section>
+<section id="create" class="page">
+ <h2>Create a Post</h2>
+ <div class="card">
+  <h3>Share something</h3>
+  <textarea id="caption" maxlength="1000" placeholder="Write a caption..."></textarea>
+  <button class="full" onclick="createPost()">SHARE POST</button>
+  <p class="muted">Text posts are saved to Firestore. Photo and video cloud uploads are not enabled yet.</p>
+ </div>
+</section>
 
- <section id="profile" class="page">
-  <h2>My Profile</h2>
-  <div class="card center">
-   <div class="avatar">W</div>
-   <h2 id="profileName">User</h2>
-   <input id="bio" placeholder="Write your bio">
-   <button onclick="saveBio()">SAVE PROFILE</button>
-  </div>
-  <button class="secondary" onclick="logout()">LOG OUT</button>
- </section>
+<section id="calls" class="page">
+ <h2>WAPCHAT Calls</h2>
+ <div class="card">
+  <div class="avatar">☎</div>
+  <h3 class="center">Audio Calls</h3>
+  <p class="muted center">Voice calling interface</p>
+  <button class="full" onclick="callInfo()">START AUDIO CALL</button>
+ </div>
+ <div class="card">
+  <div class="avatar">▣</div>
+  <h3 class="center">Video Calls</h3>
+  <p class="muted center">Video calling interface</p>
+  <button class="full" onclick="callInfo()">START VIDEO CALL</button>
+ </div>
+ <p class="muted center">Live calls require WebRTC signaling and a calling service.</p>
+</section>
 
- <section id="settings" class="page">
-  <h2>Settings</h2>
-  <div class="card">
-   <p>Theme: Dark mode</p>
-   <p>Accent: Neon Purple & Red</p>
-   <p>Network: Wi-Fi or Mobile Data</p>
-   <p class="muted">Internet features require an online backend.</p>
-  </div>
- </section>
+<section id="profile" class="page">
+ <h2>My Profile</h2>
+ <div class="card center">
+  <div class="avatar" id="profileAvatar">W</div>
+  <h2 id="profileName">User</h2>
+  <p class="status">● Signed in</p>
+  <hr>
+  <h3>About Me</h3>
+  <textarea id="bio" maxlength="300" placeholder="Write something about yourself..."></textarea>
+  <button class="full" onclick="saveBio()">SAVE PROFILE</button>
+  <p id="profileStatus" class="muted"></p>
+ </div>
+ <button class="secondary full" onclick="logout()">LOG OUT</button>
+</section>
+
+<section id="settings" class="page">
+ <h2>Settings</h2>
+ <div class="card">
+  <h3>Appearance</h3>
+  <p>Theme: Dark mode</p>
+  <p>Accent: Neon Purple & Red</p>
+  <hr>
+  <h3>Connection</h3>
+  <p>Wi-Fi and mobile data supported</p>
+  <p class="muted">An internet connection is needed for Firebase features.</p>
+  <hr>
+  <h3>WAPCHAT</h3>
+  <p class="muted">NEW BUILD 2026</p>
+ </div>
+</section>
+
 </main>
 
 <nav>
@@ -147,179 +210,228 @@ nav button.active{color:#d8a5ff}
 </nav>
 </div>
 
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
 
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
+ getAuth, createUserWithEmailAndPassword,
+ signInWithEmailAndPassword, signOut, onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
 import {
-  getFirestore,
-  doc,
-  setDoc,
-  serverTimestamp
+ getFirestore, doc, setDoc, getDoc, addDoc,
+ collection, query, orderBy, limit, onSnapshot, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAUduPg1z57zxtmg_5SX6PLIGTrAksVI78",
-  authDomain: "wapchat-7740b.firebaseapp.com",
-  projectId: "wapchat-7740b",
-  storageBucket: "wapchat-7740b.firebasestorage.app",
-  messagingSenderId: "216692723965",
-  appId: "1:216692723965:web:3df3d70d23e2cf6abfae94",
-  measurementId: "G-MGRSN6BEJY"
+ apiKey: "AIzaSyAUduPg1z57zxtmg_5SX6PLIGTrAksVI78",
+ authDomain: "wapchat-7740b.firebaseapp.com",
+ projectId: "wapchat-7740b",
+ storageBucket: "wapchat-7740b.firebasestorage.app",
+ messagingSenderId: "216692723965",
+ appId: "1:216692723965:web:3df3d70d23e2cf6abfae94",
+ measurementId: "G-MGRSN6BEJY"
 };
 
-const appFirebase = initializeApp(firebaseConfig);
-const auth = getAuth(appFirebase);
-const db = getFirestore(appFirebase);
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
 
-window.signup = async function() {
-  const email = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value;
+let currentUser = null;
+let stopFeed = null;
 
-  if (!email || !password) {
-    alert("Enter your email and password.");
-    return;
-  }
+const $ = id => document.getElementById(id);
 
-  try {
-    const result = await createUserWithEmailAndPassword(auth, email, password);
+function setAuthStatus(message){
+ $("authStatus").textContent = message;
+}
 
-    await setDoc(doc(db, "users", result.user.uid), {
-      email: email,
-      username: email.split("@")[0],
-      createdAt: serverTimestamp()
-    });
-
-    alert("WAPCHAT account created successfully!");
-  } catch (error) {
-    alert(error.message);
-  }
+window.signup = async function(){
+ const email = $("email").value.trim();
+ const password = $("password").value;
+ if(!email || !password){
+  setAuthStatus("Enter your email and password.");
+  return;
+ }
+ if(password.length < 6){
+  setAuthStatus("Password must be at least 6 characters.");
+  return;
+ }
+ $("signupBtn").disabled = true;
+ setAuthStatus("Creating your account...");
+ try{
+  const result = await createUserWithEmailAndPassword(auth,email,password);
+  await setDoc(doc(db,"users",result.user.uid),{
+   email:email,
+   username:email.split("@")[0],
+   bio:"",
+   createdAt:serverTimestamp()
+  });
+  setAuthStatus("Account created successfully!");
+ }catch(error){
+  setAuthStatus(error.message);
+ }finally{
+  $("signupBtn").disabled = false;
+ }
 };
 
-window.login = async function() {
-  const email = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value;
-
-  if (!email || !password) {
-    alert("Enter your email and password.");
-    return;
-  }
-
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (error) {
-    alert(error.message);
-  }
+window.login = async function(){
+ const email = $("email").value.trim();
+ const password = $("password").value;
+ if(!email || !password){
+  setAuthStatus("Enter your email and password.");
+  return;
+ }
+ $("loginBtn").disabled = true;
+ setAuthStatus("Signing in...");
+ try{
+  await signInWithEmailAndPassword(auth,email,password);
+ }catch(error){
+  setAuthStatus(error.message);
+ }finally{
+  $("loginBtn").disabled = false;
+ }
 };
 
-window.logout = async function() {
-  try {
-    await signOut(auth);
-  } catch (error) {
-    alert(error.message);
-  }
+window.logout = async function(){
+ try{
+  await signOut(auth);
+ }catch(error){
+  alert(error.message);
+ }
 };
 
-onAuthStateChanged(auth, user => {
-  const authScreen = document.getElementById("auth");
-  const appScreen = document.getElementById("app");
-
-  if (user) {
-    authScreen.style.display = "none";
-    appScreen.style.display = "block";
-    document.getElementById("profileName").textContent =
-      user.email.split("@")[0];
-  } else {
-    authScreen.style.display = "block";
-    appScreen.style.display = "none";
-  }
+onAuthStateChanged(auth,async user=>{
+ currentUser = user;
+ if(user){
+  $("auth").style.display = "none";
+  $("app").style.display = "block";
+  const displayName = user.email ? user.email.split("@")[0] : "WAPCHAT User";
+  $("profileName").textContent = displayName;
+  $("profileAvatar").textContent = displayName.charAt(0).toUpperCase();
+  await loadProfile(user);
+  listenToFeed();
+ }else{
+  $("auth").style.display = "block";
+  $("app").style.display = "none";
+  if(stopFeed){stopFeed();stopFeed=null;}
+ }
 });
 
-window.showPage = function(id, btn) {
-  document.querySelectorAll(".page").forEach(p =>
-    p.classList.remove("active")
-  );
-
-  document.getElementById(id).classList.add("active");
-
-  document.querySelectorAll("nav button").forEach(b =>
-    b.classList.remove("active")
-  );
-
-  btn.classList.add("active");
-};
-
-window.shareNote = function() {
-  const t = document.getElementById("noteText").value.trim();
-  if (!t) return;
-
-  const d = document.createElement("div");
-  d.className = "card";
-  d.textContent = t;
-
-  document.getElementById("feed").prepend(d);
-  document.getElementById("noteText").value = "";
-};
-
-window.sendMessage = function() {
-  const t = document.getElementById("chatText").value.trim();
-  if (!t) return;
-
-  const d = document.createElement("div");
-  d.className = "message mine";
-  d.textContent = t;
-
-  document.getElementById("messages").appendChild(d);
-  document.getElementById("chatText").value = "";
-};
-
-window.createPost = function() {
-  const f = document.getElementById("media").files[0];
-  const c = document.getElementById("caption").value;
-
-  if (!f && !c) {
-    alert("Add a caption or choose a photo/video.");
-    return;
+async function loadProfile(user){
+ try{
+  const snap = await getDoc(doc(db,"users",user.uid));
+  if(snap.exists()){
+   const data = snap.data();
+   $("bio").value = data.bio || "";
+   if(data.username){
+    $("profileName").textContent = data.username;
+    $("profileAvatar").textContent = data.username.charAt(0).toUpperCase();
+   }
   }
+ }catch(error){
+  $("profileStatus").textContent = "Could not load profile: " + error.message;
+ }
+}
 
-  const card = document.createElement("div");
-  card.className = "card post";
+window.saveBio = async function(){
+ if(!currentUser)return;
+ const bio = $("bio").value.trim();
+ $("profileStatus").textContent = "Saving...";
+ try{
+  await setDoc(doc(db,"users",currentUser.uid),{
+   bio:bio,
+   email:currentUser.email,
+   username:$("profileName").textContent
+  },{merge:true});
+  $("profileStatus").textContent = "Profile saved successfully!";
+ }catch(error){
+  $("profileStatus").textContent = error.message;
+ }
+};
 
-  const caption = document.createElement("p");
-  caption.textContent = c;
-  card.appendChild(caption);
+window.shareNote = async function(){
+ if(!currentUser)return;
+ const text = $("noteText").value.trim();
+ if(!text)return alert("Write a note first.");
+ try{
+  await addDoc(collection(db,"posts"),{
+   uid:currentUser.uid,
+   author:currentUser.email.split("@")[0],
+   type:"note",
+   text:text,
+   createdAt:serverTimestamp()
+  });
+  $("noteText").value = "";
+ }catch(error){
+  alert("Could not share note: " + error.message);
+ }
+};
 
-  if (f) {
-    const url = URL.createObjectURL(f);
-    const el = document.createElement(
-      f.type.startsWith("video/") ? "video" : "img"
-    );
-    el.src = url;
-    if (el.tagName === "VIDEO") el.controls = true;
-    card.appendChild(el);
+window.createPost = async function(){
+ if(!currentUser)return;
+ const caption = $("caption").value.trim();
+ if(!caption)return alert("Write a caption first.");
+ try{
+  await addDoc(collection(db,"posts"),{
+   uid:currentUser.uid,
+   author:currentUser.email.split("@")[0],
+   type:"post",
+   text:caption,
+   createdAt:serverTimestamp()
+  });
+  $("caption").value = "";
+  alert("Your text post was shared!");
+ }catch(error){
+  alert("Could not create post: " + error.message);
+ }
+};
+
+function listenToFeed(){
+ if(stopFeed)stopFeed();
+ const q = query(collection(db,"posts"),orderBy("createdAt","desc"),limit(50));
+ stopFeed = onSnapshot(q,snapshot=>{
+  const feed = $("feed");
+  feed.replaceChildren();
+  if(snapshot.empty){
+   feed.innerHTML = '<div class="empty">No posts yet. Be the first to share!</div>';
+   return;
   }
+  snapshot.forEach(item=>{
+   const data = item.data();
+   const card = document.createElement("div");
+   card.className = "card post";
+   const head = document.createElement("div");
+   head.className = "posthead";
+   const avatar = document.createElement("div");
+   avatar.className = "miniavatar";
+   avatar.textContent = (data.author || "W").charAt(0).toUpperCase();
+   const author = document.createElement("strong");
+   author.textContent = data.author || "WAPCHAT User";
+   head.append(avatar,author);
+   const content = document.createElement("p");
+   content.textContent = data.text || "";
+   const tag = document.createElement("span");
+   tag.className = "pill";
+   tag.textContent = data.type === "note" ? "SHARED NOTE" : "POST";
+   card.append(head,tag,content);
+   feed.appendChild(card);
+  });
+ },error=>{
+  $("feed").textContent = "Feed error: " + error.message;
+ });
+}
 
-  document.getElementById("feed").prepend(card);
-  document.getElementById("caption").value = "";
-  document.getElementById("media").value = "";
+window.showPage = function(id,button){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ $(id).classList.add("active");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
 };
 
-window.saveBio = function() {
-  alert("Profile bio saving will be connected next.");
-};
-
-window.callInfo = function() {
-  alert("Calling service will be connected next.");
+window.callInfo = function(){
+ alert("Audio and video calling are not connected yet. A secure calling service is needed.");
 };
 </script>
-
 </body>
 </html>
