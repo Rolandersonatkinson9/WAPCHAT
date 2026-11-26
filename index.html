@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WAPCHAT</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#08070d;color:white;font-family:Arial,sans-serif}
+:root{--purple:#a855f7;--red:#ff3155}
+header{padding:20px;background:#100c19;border-bottom:1px solid #382044;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:27px;font-weight:900;color:#c084fc}
+.logo span{color:var(--red)}
+main{max-width:600px;margin:auto;padding:16px;padding-bottom:90px}
+h2{color:#d8b4fe}
+.card{background:#15111e;border:1px solid #392347;border-radius:15px;padding:16px;margin:14px 0}
+input,textarea{width:100%;padding:13px;margin:7px 0;background:#090811;color:white;border:1px solid #674080;border-radius:9px;font-size:15px}
+button{background:linear-gradient(110deg,#8b35df,#ed3159);border:0;color:white;padding:12px 17px;border-radius:9px;font-weight:bold;cursor:pointer}
+button.secondary{background:#292033;border:1px solid #75449a}
+button:active{opacity:.7}
+nav{position:fixed;bottom:0;left:0;right:0;background:#120d1b;border-top:1px solid #49305a;display:flex;justify-content:space-around;padding:12px 3px;z-index:5}
+nav button{background:transparent;padding:9px 5px;font-size:12px}
+nav button.active{color:#d8a5ff}
+.page{display:none}
+.page.active{display:block}
+.muted{color:#aaa;font-size:13px}
+.post img,.post video{width:100%;border-radius:10px;margin-top:10px}
+.pill{display:inline-block;background:#382047;color:#d8b4fe;padding:6px 10px;border-radius:20px;font-size:12px}
+.message{padding:12px;margin:8px 0;border-radius:12px;background:#30203d;max-width:85%}
+.mine{margin-left:auto;background:#702c83}
+#app{display:none}
+.center{text-align:center;padding-top:50px}
+.avatar{width:65px;height:65px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#ff3155);display:grid;place-items:center;font-size:27px;margin:10px auto}
+.row{display:flex;gap:9px;align-items:center}
+.row input{flex:1;min-width:0}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">W<span>AP</span>CHAT</div>
+ <span class="pill">CONNECT • CHAT • SHARE</span>
+</header>
+
+<section id="auth" class="center">
+ <div class="card" style="margin:20px">
+  <div class="logo">W<span>AP</span>CHAT</div>
+  <div class="avatar">W</div>
+  <h2 id="authTitle">Welcome Back!</h2>
+  <p class="muted">Connect with everyone.</p>
+  <input id="username" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+  <button style="width:100%" onclick="login()">LOGIN</button>
+  <p class="muted">New here?</p>
+  <button class="secondary" onclick="signup()">CREATE ACCOUNT</button>
+  <p class="muted">Demo only: account information stays on this device.</p>
+ </div>
+</section>
+
+<div id="app">
+<main>
+ <section id="home" class="page active">
+  <h2>Home Feed</h2>
+  <div class="card">
+   <h3>Share a Note</h3>
+   <textarea id="noteText" placeholder="What's on your mind?"></textarea>
+   <button onclick="shareNote()">Share Note</button>
+  </div>
+  <div id="feed"></div>
+ </section>
+
+ <section id="chats" class="page">
+  <h2>Messages</h2>
+  <div class="card">
+   <h3>Private Chat</h3>
+   <p class="muted">Demo conversation</p>
+   <div id="messages">
+    <div class="message">Welcome to WAPCHAT!</div>
+   </div>
+   <div class="row">
+    <input id="chatText" placeholder="Write a message...">
+    <button onclick="sendMessage()">SEND</button>
+   </div>
+  </div>
+  <div class="card">
+   <h3>Group Chat</h3>
+   <p class="muted">Group chat interface preview</p>
+   <button onclick="alert('Online group chat will need a server.')">Open Group Chat</button>
+  </div>
+ </section>
+
+ <section id="create" class="page">
+  <h2>Create a Post</h2>
+  <div class="card">
+   <textarea id="caption" placeholder="Write a caption..."></textarea>
+   <input type="file" id="media" accept="image/*,video/*">
+   <button onclick="createPost()">SHARE POST</button>
+   <p class="muted">Local preview only in this demo.</p>
+  </div>
+ </section>
+
+ <section id="calls" class="page">
+  <h2>Calls</h2>
+  <div class="card">
+   <h3>Audio Call</h3>
+   <p class="muted">Voice calling feature</p>
+   <button onclick="callInfo()">Start Audio Call</button>
+  </div>
+  <div class="card">
+   <h3>Video Call</h3>
+   <p class="muted">Video calling feature</p>
+   <button onclick="callInfo()">Start Video Call</button>
+  </div>
+  <p class="muted">Real calls require WebRTC and an online calling service.</p>
+ </section>
+
+ <section id="profile" class="page">
+  <h2>My Profile</h2>
+  <div class="card center">
+   <div class="avatar">W</div>
+   <h2 id="profileName">User</h2>
+   <input id="bio" placeholder="Write your bio">
+   <button onclick="saveBio()">SAVE PROFILE</button>
+  </div>
+  <button class="secondary" onclick="logout()">LOG OUT</button>
+ </section>
+
+ <section id="settings" class="page">
+  <h2>Settings</h2>
+  <div class="card">
+   <p>Theme: Dark mode</p>
+   <p>Accent: Neon Purple & Red</p>
+   <p>Network: Wi-Fi or Mobile Data</p>
+   <p class="muted">Internet features require an online backend.</p>
+  </div>
+ </section>
+</main>
+
+<nav>
+ <button class="active" onclick="showPage('home',this)">⌂<br>Home</button>
+ <button onclick="showPage('chats',this)">▤<br>Chats</button>
+ <button onclick="showPage('create',this)">＋<br>Create</button>
+ <button onclick="showPage('calls',this)">☎<br>Calls</button>
+ <button onclick="showPage('profile',this)">●<br>Profile</button>
+ <button onclick="showPage('settings',this)">⚙<br>More</button>
+</nav>
+</div>
+
+<script>
+function signup(){
+ let u=document.getElementById('username').value.trim();
+ let p=document.getElementById('password').value;
+ if(!u||!p){alert('Enter a username and password.');return}
+ localStorage.setItem('wap_user',u);
+ localStorage.setItem('wap_pass',p);
+ alert('Demo account created! You can now log in.');
+}
+function login(){
+ let u=document.getElementById('username').value.trim();
+ let p=document.getElementById('password').value;
+ if(u===localStorage.getItem('wap_user')&&p===localStorage.getItem('wap_pass')){
+  document.getElementById('auth').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('profileName').textContent=u;
+ }else{alert('Account not found. Create a demo account first.')}
+}
+function logout(){
+ document.getElementById('app').style.display='none';
+ document.getElementById('auth').style.display='block';
+}
+function showPage(id,btn){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
+}
+function shareNote(){
+ let t=document.getElementById('noteText').value.trim();
+ if(!t)return;
+ let d=document.createElement('div');
+ d.className='card';
+ d.textContent=t;
+ document.getElementById('feed').prepend(d);
+ document.getElementById('noteText').value='';
+}
+function sendMessage(){
+ let t=document.getElementById('chatText').value.trim();
+ if(!t)return;
+ let d=document.createElement('div');
+ d.className='message mine';
+ d.textContent=t;
+ document.getElementById('messages').appendChild(d);
+ document.getElementById('chatText').value='';
+}
+function createPost(){
+ let f=document.getElementById('media').files[0];
+ let c=document.getElementById('caption').value;
+ if(!f&&!c){alert('Add a caption or choose a photo/video.');return}
+ let card=document.createElement('div');
+ card.className='card post';
+ let caption=document.createElement('p');
+ caption.textContent=c;
+ card.appendChild(caption);
+ if(f){
+  let url=URL.createObjectURL(f);
+  let el=document.createElement(f.type.startsWith('video/')?'video':'img');
+  el.src=url;
+  if(el.tagName==='VIDEO')el.controls=true;
+  card.appendChild(el);
+ }
+ document.getElementById('feed').prepend(card);
+ document.getElementById('caption').value='';
+ document.getElementById('media').value='';
+}
+function saveBio(){
+ alert('Profile bio saved in this demo.');
+}
+function callInfo(){
+ alert('Audio and video calls will be activated after we connect the online calling service.');
+}
+</script>
+</body>
+</html>
