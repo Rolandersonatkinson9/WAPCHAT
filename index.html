@@ -5,433 +5,429 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090611">
-<title>WAPCHAT</
-title>
+<title>WAPCHAT</title>
 <style>
 *{box-sizing:border-box}
-:root{
- --bg:#090611;--panel:#171020;--panel2:#21132d;
- --purple:#a855f7;--pink:#d879ff;--red:#ff3155;
- --text:#fff;--muted:#aaa0b8;--line:#452653;
-}
+:root{--bg:#090611;--panel:#171020;--panel2:#21132d;--purple:#a855f7;--pink:#fb315e;--text:#f7efff;--muted:#aa9bb8;--line:#382444}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-header{
- position:sticky;top:0;z-index:5;padding:16px;
- background:#120c1df2;border-bottom:1px solid var(--line);
- display:flex;justify-content:space-between;align-items:center;
- backdrop-filter:blur(12px)
-}
-.logo{font-size:26px;font-weight:900;letter-spacing:1px;color:var(--pink)}
-.logo span{color:var(--red)}
-.pill{font-size:10px;padding:7px 10px;border-radius:20px;background:#382047;color:#e5b9ff}
-main{max-width:650px;margin:auto;padding:15px 15px 100px}
-h2{color:#e2b8ff;margin-top:10px}
-h3{margin-top:5px}
-.card{
- background:linear-gradient(145deg,#1d1429,#120e1b);
- border:1px solid var(--line);border-radius:18px;
- padding:17px;margin:14px 0;
- box-shadow:0 8px 25px #0005
-}
-input,textarea{
- width:100%;padding:14px;margin:7px 0;
- background:#0b0812;color:white;border:1px solid #674080;
- border-radius:11px;font-size:15px;outline:none
-}
-input:focus,textarea:focus{border-color:var(--pink)}
-textarea{resize:vertical;min-height:90px}
-button{
- border:0;border-radius:11px;padding:13px 17px;
- background:linear-gradient(110deg,#9135e8,#ed3159);
- color:white;font-weight:bold;cursor:pointer
-}
-button:disabled{opacity:.5}
-.secondary{background:#2b2035;border:1px solid #75449a}
-.full{width:100%}
-.muted{color:var(--muted);font-size:13px;line-height:1.5}
-.center{text-align:center}
-#auth{max-width:480px;margin:25px auto;padding:12px}
-#app{display:none}
-.avatar{
- width:78px;height:78px;border-radius:50%;
- display:grid;place-items:center;margin:14px auto;
- font-size:30px;font-weight:900;
- background:linear-gradient(135deg,#a855f7,#ff3155);
- border:3px solid #d879ff
-}
-.page{display:none}
-.page.active{display:block}
-nav{
- position:fixed;bottom:0;left:0;right:0;z-index:10;
- display:flex;justify-content:space-around;gap:2px;
- padding:9px 2px calc(9px + env(safe-area-inset-bottom));
- background:#120d1bf5;border-top:1px solid var(--line);
- backdrop-filter:blur(12px)
-}
-nav button{background:transparent;padding:8px 4px;font-size:11px;flex:1;color:#b9a9c5}
-nav button.active{color:#f0c7ff;background:#382047;border-radius:10px}
-.post{white-space:pre-wrap;overflow-wrap:anywhere}
-.posthead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.miniavatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#a855f7,#ff3155);font-weight:bold}
-.message{padding:12px;margin:9px 0;border-radius:13px;background:#30203d;max-width:85%}
-.mine{margin-left:auto;background:#702c83}
-.row{display:flex;gap:8px;align-items:center}
-.row input{flex:1;min-width:0}
-.status{font-size:12px;color:#9ce8b0}
-hr{border:0;border-top:1px solid var(--line);margin:16px 0}
-.empty{text-align:center;color:var(--muted);padding:25px 8px}
-.post img,.post video{width:100%;border-radius:12px;margin-top:10px}
+button,input,textarea{font:inherit}
+button{cursor:pointer;border:0}
+header{padding:17px 18px;background:#120b1b;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
+.logo{font-size:25px;font-weight:900;letter-spacing:1px;color:white}
+.logo span{color:var(--purple)}
+.small{font-size:12px;color:var(--muted)}
+main{max-width:720px;margin:auto;padding:16px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:15px}
+h2{font-size:19px;margin:0 0 14px}
+input,textarea{width:100%;background:#0e0915;color:white;border:1px solid var(--line);border-radius:10px;padding:13px;margin:6px 0;outline:none}
+input:focus,textarea:focus{border-color:var(--purple)}
+textarea{resize:vertical;min-height:85px}
+.btn{background:linear-gradient(110deg,var(--purple),var(--pink));color:white;padding:12px 17px;border-radius:10px;font-weight:bold}
+.btn2{background:#30203d;color:white;padding:10px 14px;border-radius:10px}
+.full{width:100%;margin-top:8px}
+.hidden{display:none!important}
+.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:15px}
+.tabs button{white-space:nowrap;background:#21132d;color:#cdbbdc;padding:11px 14px;border-radius:10px}
+.tabs button.active{background:var(--purple);color:white}
+.post{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:15px;margin-bottom:13px;overflow:hidden}
+.posthead{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}
+.username{font-weight:bold;color:#e5c8ff}
+.posttime{font-size:11px;color:var(--muted)}
+.postbody{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
+.post img,.post video{width:100%;max-height:430px;object-fit:contain;background:#08050c;border-radius:12px;margin-top:10px}
+.status{color:#b8ffca;font-size:12px}
+.error{color:#ff829c;font-size:13px;margin-top:8px}
+#preview{max-width:100%;max-height:220px;display:block;margin:10px auto;border-radius:12px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
 </style>
 </head>
 <body>
 
 <header>
- <div class="logo">W<span>AP</span>CHAT</div>
- <span class="pill">NEW BUILD 2026</span>
+  <div>
+    <div class="logo">W<span>AP</span>CHAT</div>
+    <div class="small">Connect • Share • Chat</div>
+  </div>
+  <button id="logoutBtn" class="btn2 hidden">Log out</button>
 </header>
 
-<section id="auth" class="center">
- <div class="card">
-  <div class="logo">W<span>AP</span>CHAT</div>
-  <div class="avatar">W</div>
-  <h2 id="authTitle">Welcome Back</h2>
-  <p class="muted">Connect. Chat. Share.</p>
-  <input id="email" type="email" placeholder="Email address" autocomplete="email">
-  <input id="password" type="password" placeholder="Password" autocomplete="current-password">
-  <button class="full" id="loginBtn" onclick="login()">LOGIN</button>
-  <p class="muted">New to WAPCHAT?</p>
-  <button class="secondary full" id="signupBtn" onclick="signup()">CREATE ACCOUNT</button>
-  <p id="authStatus" class="muted"></p>
- </div>
-</section>
-
-<div id="app">
 <main>
+  <section id="authSection" class="panel">
+    <h2>Welcome to WAPCHAT</h2>
+    <p class="small">Sign in or create your account.</p>
+    <input id="email" type="email" placeholder="Email address" autocomplete="email">
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password">
+    <button id="loginBtn" class="btn full">LOG IN</button>
+    <button id="registerBtn" class="btn2 full">CREATE ACCOUNT</button>
+    <p id="authMessage" class="error"></p>
+  </section>
 
-<section id="home" class="page active">
- <h2>Home Feed</h2>
- <p class="muted">See what's happening in your WAPCHAT community.</p>
- <div class="card">
-  <h3>Share a Note</h3>
-  <textarea id="noteText" maxlength="1000" placeholder="What's on your mind?"></textarea>
-  <button class="full" onclick="shareNote()">＋ SHARE NOTE</button>
- </div>
- <div id="feed"><div class="empty">Loading your feed...</div></div>
-</section>
+  <section id="appSection" class="hidden">
+    <div class="panel">
+      <h2 id="welcome">WAPCHAT Feed</h2>
+      <div class="small" id="userEmail"></div>
+    </div>
 
-<section id="chats" class="page">
- <h2>Messages</h2>
- <div class="card">
-  <span class="pill">PRIVATE CHAT</span>
-  <h3>Private Messages</h3>
-  <p class="muted">Your chat interface. Real private messaging will be enabled after secure chat membership rules are configured.</p>
-  <div id="messages">
-   <div class="empty">Your conversations will appear here.</div>
-  </div>
-  <div class="row">
-   <input id="chatText" placeholder="Write a message..." disabled>
-   <button disabled>SEND</button>
-  </div>
- </div>
- <div class="card">
-  <span class="pill">GROUP CHAT</span>
-  <h3>Group Conversations</h3>
-  <p class="muted">Create groups and talk with friends. Group messaging will be connected after membership permissions are secured.</p>
- </div>
-</section>
+    <nav class="tabs">
+      <button class="active" data-tab="feed">Home Feed</button>
+      <button data-tab="create">Create Post</button>
+      <button data-tab="profile">My Profile</button>
+      <button data-tab="chat">Chats</button>
+      <button data-tab="calls">Calls</button>
+    </nav>
 
-<section id="create" class="page">
- <h2>Create a Post</h2>
- <div class="card">
-  <h3>Share something</h3>
-  <textarea id="caption" maxlength="1000" placeholder="Write a caption..."></textarea>
-  <button class="full" onclick="createPost()">SHARE POST</button>
-  <p class="muted">Text posts are saved to Firestore. Photo and video cloud uploads are not enabled yet.</p>
- </div>
-</section>
+    <section id="feedTab">
+      <div class="panel">
+        <h2>Community Feed</h2>
+        <p class="small">Latest posts from WAPCHAT users.</p>
+      </div>
+      <div id="feed"></div>
+    </section>
 
-<section id="calls" class="page">
- <h2>WAPCHAT Calls</h2>
- <div class="card">
-  <div class="avatar">☎</div>
-  <h3 class="center">Audio Calls</h3>
-  <p class="muted center">Voice calling interface</p>
-  <button class="full" onclick="callInfo()">START AUDIO CALL</button>
- </div>
- <div class="card">
-  <div class="avatar">▣</div>
-  <h3 class="center">Video Calls</h3>
-  <p class="muted center">Video calling interface</p>
-  <button class="full" onclick="callInfo()">START VIDEO CALL</button>
- </div>
- <p class="muted center">Live calls require WebRTC signaling and a calling service.</p>
-</section>
+    <section id="createTab" class="hidden">
+      <div class="panel">
+        <h2>Create a post</h2>
+        <textarea id="postText" placeholder="What's on your mind?"></textarea>
+        <label class="small">Attach a photo or video (optional)</label>
+        <input id="mediaFile" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm">
+        <div id="previewBox"></div>
+        <button id="publishBtn" class="btn full">PUBLISH POST</button>
+        <p id="postMessage" class="small"></p>
+      </div>
+    </section>
 
-<section id="profile" class="page">
- <h2>My Profile</h2>
- <div class="card center">
-  <div class="avatar" id="profileAvatar">W</div>
-  <h2 id="profileName">User</h2>
-  <p class="status">● Signed in</p>
-  <hr>
-  <h3>About Me</h3>
-  <textarea id="bio" maxlength="300" placeholder="Write something about yourself..."></textarea>
-  <button class="full" onclick="saveBio()">SAVE PROFILE</button>
-  <p id="profileStatus" class="muted"></p>
- </div>
- <button class="secondary full" onclick="logout()">LOG OUT</button>
-</section>
+    <section id="profileTab" class="hidden">
+      <div class="panel">
+        <h2>My Profile</h2>
+        <p id="profileEmail" class="small"></p>
+        <input id="displayName" maxlength="40" placeholder="Your display name">
+        <textarea id="bio" maxlength="250" placeholder="Write something about yourself"></textarea>
+        <button id="saveProfileBtn" class="btn full">SAVE PROFILE</button>
+        <p id="profileMessage" class="small"></p>
+      </div>
+    </section>
 
-<section id="settings" class="page">
- <h2>Settings</h2>
- <div class="card">
-  <h3>Appearance</h3>
-  <p>Theme: Dark mode</p>
-  <p>Accent: Neon Purple & Red</p>
-  <hr>
-  <h3>Connection</h3>
-  <p>Wi-Fi and mobile data supported</p>
-  <p class="muted">An internet connection is needed for Firebase features.</p>
-  <hr>
-  <h3>WAPCHAT</h3>
-  <p class="muted">NEW BUILD 2026</p>
- </div>
-</section>
+    <section id="chatTab" class="hidden">
+      <div class="panel">
+        <h2>Private & Group Chats</h2>
+        <p class="small">Chat interface is not connected yet. Messaging requires additional Firestore setup.</p>
+      </div>
+    </section>
 
+    <section id="callsTab" class="hidden">
+      <div class="panel">
+        <h2>Audio & Video Calls</h2>
+        <p class="small">Calling interface is not connected yet. Real calls require WebRTC and signaling setup.</p>
+      </div>
+    </section>
+  </section>
 </main>
 
-<nav>
- <button class="active" onclick="showPage('home',this)">⌂<br>Home</button>
- <button onclick="showPage('chats',this)">▤<br>Chats</button>
- <button onclick="showPage('create',this)">＋<br>Create</button>
- <button onclick="showPage('calls',this)">☎<br>Calls</button>
- <button onclick="showPage('profile',this)">●<br>Profile</button>
- <button onclick="showPage('settings',this)">⚙<br>More</button>
-</nav>
-</div>
+<footer>WAPCHAT • 2026</footer>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
- getAuth, createUserWithEmailAndPassword,
- signInWithEmailAndPassword, signOut, onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
-
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
- getFirestore, doc, setDoc, getDoc, addDoc,
- collection, query, orderBy, limit, onSnapshot, serverTimestamp
-} from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+  getFirestore, doc, setDoc, getDoc, collection, addDoc,
+  query, orderBy, onSnapshot, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+/* FIREBASE CONFIG */
 const firebaseConfig = {
- apiKey: "AIzaSyAUduPg1z57zxtmg_5SX6PLIGTrAksVI78",
- authDomain: "wapchat-7740b.firebaseapp.com",
- projectId: "wapchat-7740b",
- storageBucket: "wapchat-7740b.firebasestorage.app",
- messagingSenderId: "216692723965",
- appId: "1:216692723965:web:3df3d70d23e2cf6abfae94",
- measurementId: "G-MGRSN6BEJY"
+  apiKey: "AIzaSyAUduPg1z57zxtmg_5SX6PLIGTrAksVI78",
+  authDomain: "wapchat-7740b.firebaseapp.com",
+  projectId: "wapchat-7740b",
+  storageBucket: "wapchat-7740b.firebasestorage.app",
+  messagingSenderId: "216692723965",
+  appId: "1:216692723965:web:3df3d70d23e2cf6abfae94",
+  measurementId: "G-MGRSN6BEJY"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
+const CLOUD_NAME = "degmouc5";
+const UPLOAD_PRESET = "wapchat_upload";
 
-let currentUser = null;
-let stopFeed = null;
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 const $ = id => document.getElementById(id);
+let currentUser = null;
+let stopFeed = null;
+let selectedFile = null;
 
-function setAuthStatus(message){
- $("authStatus").textContent = message;
+function message(id, text, isError=false) {
+  $(id).textContent = text;
+  $(id).style.color = isError ? "#ff829c" : "#b8ffca";
 }
 
-window.signup = async function(){
- const email = $("email").value.trim();
- const password = $("password").value;
- if(!email || !password){
-  setAuthStatus("Enter your email and password.");
-  return;
- }
- if(password.length < 6){
-  setAuthStatus("Password must be at least 6 characters.");
-  return;
- }
- $("signupBtn").disabled = true;
- setAuthStatus("Creating your account...");
- try{
-  const result = await createUserWithEmailAndPassword(auth,email,password);
-  await setDoc(doc(db,"users",result.user.uid),{
-   email:email,
-   username:email.split("@")[0],
-   bio:"",
-   createdAt:serverTimestamp()
-  });
-  setAuthStatus("Account created successfully!");
- }catch(error){
-  setAuthStatus(error.message);
- }finally{
-  $("signupBtn").disabled = false;
- }
-};
-
-window.login = async function(){
- const email = $("email").value.trim();
- const password = $("password").value;
- if(!email || !password){
-  setAuthStatus("Enter your email and password.");
-  return;
- }
- $("loginBtn").disabled = true;
- setAuthStatus("Signing in...");
- try{
-  await signInWithEmailAndPassword(auth,email,password);
- }catch(error){
-  setAuthStatus(error.message);
- }finally{
-  $("loginBtn").disabled = false;
- }
-};
-
-window.logout = async function(){
- try{
-  await signOut(auth);
- }catch(error){
-  alert(error.message);
- }
-};
-
-onAuthStateChanged(auth,async user=>{
- currentUser = user;
- if(user){
-  $("auth").style.display = "none";
-  $("app").style.display = "block";
-  const displayName = user.email ? user.email.split("@")[0] : "WAPCHAT User";
-  $("profileName").textContent = displayName;
-  $("profileAvatar").textContent = displayName.charAt(0).toUpperCase();
-  await loadProfile(user);
-  listenToFeed();
- }else{
-  $("auth").style.display = "block";
-  $("app").style.display = "none";
-  if(stopFeed){stopFeed();stopFeed=null;}
- }
+$("loginBtn").addEventListener("click", async () => {
+  message("authMessage", "");
+  try {
+    await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
+  } catch (e) {
+    message("authMessage", e.message, true);
+  }
 });
 
-async function loadProfile(user){
- try{
-  const snap = await getDoc(doc(db,"users",user.uid));
-  if(snap.exists()){
-   const data = snap.data();
-   $("bio").value = data.bio || "";
-   if(data.username){
-    $("profileName").textContent = data.username;
-    $("profileAvatar").textContent = data.username.charAt(0).toUpperCase();
-   }
+$("registerBtn").addEventListener("click", async () => {
+  message("authMessage", "");
+  try {
+    const credential = await createUserWithEmailAndPassword(
+      auth, $("email").value.trim(), $("password").value
+    );
+    await setDoc(doc(db, "users", credential.user.uid), {
+      email: credential.user.email,
+      displayName: credential.user.email.split("@")[0],
+      bio: "",
+      createdAt: serverTimestamp()
+    });
+  } catch (e) {
+    message("authMessage", e.message, true);
   }
- }catch(error){
-  $("profileStatus").textContent = "Could not load profile: " + error.message;
- }
+});
+
+$("logoutBtn").addEventListener("click", () => signOut(auth));
+
+onAuthStateChanged(auth, async user => {
+  currentUser = user;
+  $("authSection").classList.toggle("hidden", !!user);
+  $("appSection").classList.toggle("hidden", !user);
+  $("logoutBtn").classList.toggle("hidden", !user);
+
+  if (!user) {
+    if (stopFeed) stopFeed();
+    stopFeed = null;
+    return;
+  }
+
+  $("userEmail").textContent = user.email || "";
+  $("profileEmail").textContent = user.email || "";
+  $("welcome").textContent = "Welcome to WAPCHAT";
+
+  await loadProfile();
+  listenToFeed();
+});
+
+async function loadProfile() {
+  try {
+    const snap = await getDoc(doc(db, "users", currentUser.uid));
+    if (snap.exists()) {
+      const data = snap.data();
+      $("displayName").value = data.displayName || "";
+      $("bio").value = data.bio || "";
+    } else {
+      $("displayName").value = currentUser.email.split("@")[0];
+    }
+  } catch (e) {
+    message("profileMessage", e.message, true);
+  }
 }
 
-window.saveBio = async function(){
- if(!currentUser)return;
- const bio = $("bio").value.trim();
- $("profileStatus").textContent = "Saving...";
- try{
-  await setDoc(doc(db,"users",currentUser.uid),{
-   bio:bio,
-   email:currentUser.email,
-   username:$("profileName").textContent
-  },{merge:true});
-  $("profileStatus").textContent = "Profile saved successfully!";
- }catch(error){
-  $("profileStatus").textContent = error.message;
- }
-};
-
-window.shareNote = async function(){
- if(!currentUser)return;
- const text = $("noteText").value.trim();
- if(!text)return alert("Write a note first.");
- try{
-  await addDoc(collection(db,"posts"),{
-   uid:currentUser.uid,
-   author:currentUser.email.split("@")[0],
-   type:"note",
-   text:text,
-   createdAt:serverTimestamp()
-  });
-  $("noteText").value = "";
- }catch(error){
-  alert("Could not share note: " + error.message);
- }
-};
-
-window.createPost = async function(){
- if(!currentUser)return;
- const caption = $("caption").value.trim();
- if(!caption)return alert("Write a caption first.");
- try{
-  await addDoc(collection(db,"posts"),{
-   uid:currentUser.uid,
-   author:currentUser.email.split("@")[0],
-   type:"post",
-   text:caption,
-   createdAt:serverTimestamp()
-  });
-  $("caption").value = "";
-  alert("Your text post was shared!");
- }catch(error){
-  alert("Could not create post: " + error.message);
- }
-};
-
-function listenToFeed(){
- if(stopFeed)stopFeed();
- const q = query(collection(db,"posts"),orderBy("createdAt","desc"),limit(50));
- stopFeed = onSnapshot(q,snapshot=>{
-  const feed = $("feed");
-  feed.replaceChildren();
-  if(snapshot.empty){
-   feed.innerHTML = '<div class="empty">No posts yet. Be the first to share!</div>';
-   return;
+$("saveProfileBtn").addEventListener("click", async () => {
+  if (!currentUser) return;
+  try {
+    await setDoc(doc(db, "users", currentUser.uid), {
+      email: currentUser.email,
+      displayName: $("displayName").value.trim().slice(0,40),
+      bio: $("bio").value.trim().slice(0,250)
+    }, { merge: true });
+    message("profileMessage", "Profile saved!");
+  } catch (e) {
+    message("profileMessage", e.message, true);
   }
-  snapshot.forEach(item=>{
-   const data = item.data();
-   const card = document.createElement("div");
-   card.className = "card post";
-   const head = document.createElement("div");
-   head.className = "posthead";
-   const avatar = document.createElement("div");
-   avatar.className = "miniavatar";
-   avatar.textContent = (data.author || "W").charAt(0).toUpperCase();
-   const author = document.createElement("strong");
-   author.textContent = data.author || "WAPCHAT User";
-   head.append(avatar,author);
-   const content = document.createElement("p");
-   content.textContent = data.text || "";
-   const tag = document.createElement("span");
-   tag.className = "pill";
-   tag.textContent = data.type === "note" ? "SHARED NOTE" : "POST";
-   card.append(head,tag,content);
-   feed.appendChild(card);
-  });
- },error=>{
-  $("feed").textContent = "Feed error: " + error.message;
- });
+});
+
+$("mediaFile").addEventListener("change", event => {
+  selectedFile = event.target.files[0] || null;
+  $("previewBox").replaceChildren();
+
+  if (!selectedFile) return;
+
+  const allowed = ["image/jpeg","image/png","image/webp","video/mp4","video/webm"];
+  if (!allowed.includes(selectedFile.type)) {
+    selectedFile = null;
+    event.target.value = "";
+    message("postMessage", "Unsupported file type.", true);
+    return;
+  }
+
+  const isVideo = selectedFile.type.startsWith("video/");
+  const maxSize = isVideo ? 50 * 1024 * 1024 : 10 * 1024 * 1024;
+
+  if (selectedFile.size > maxSize) {
+    selectedFile = null;
+    event.target.value = "";
+    message("postMessage", isVideo ? "Video must be 50 MB or smaller." : "Photo must be 10 MB or smaller.", true);
+    return;
+  }
+
+  const url = URL.createObjectURL(selectedFile);
+  const preview = document.createElement(isVideo ? "video" : "img");
+  preview.id = "preview";
+  preview.src = url;
+  if (isVideo) preview.controls = true;
+  $("previewBox").appendChild(preview);
+});
+
+async function uploadToCloudinary(file) {
+  const isVideo = file.type.startsWith("video/");
+  const resourceType = isVideo ? "video" : "image";
+  const endpoint = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/${resourceType}/upload`;
+
+  const form = new FormData();
+  form.append("file", file);
+  form.append("upload_preset", UPLOAD_PRESET);
+
+  const response = await fetch(endpoint, { method: "POST", body: form });
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(result.error?.message || "Cloudinary upload failed.");
+  }
+
+  return {
+    mediaUrl: result.secure_url,
+    mediaType: resourceType
+  };
 }
 
-window.showPage = function(id,button){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- $(id).classList.add("active");
- document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
- button.classList.add("active");
-};
+$("publishBtn").addEventListener("click", async () => {
+  if (!currentUser) return;
 
-window.callInfo = function(){
- alert("Audio and video calling are not connected yet. A secure calling service is needed.");
-};
+  const text = $("postText").value.trim();
+  if (!text && !selectedFile) {
+    message("postMessage", "Write something or choose a photo/video.", true);
+    return;
+  }
+
+  $("publishBtn").disabled = true;
+  message("postMessage", "Publishing post...");
+
+  try {
+    let media = null;
+    if (selectedFile) {
+      message("postMessage", "Uploading media...");
+      media = await uploadToCloudinary(selectedFile);
+    }
+
+    const profile = await getDoc(doc(db, "users", currentUser.uid));
+    const displayName = profile.exists()
+      ? (profile.data().displayName || currentUser.email)
+      : currentUser.email;
+
+    await addDoc(collection(db, "posts"), {
+      uid: currentUser.uid,
+      email: currentUser.email,
+      displayName,
+      text,
+      mediaUrl: media?.mediaUrl || "",
+      mediaType: media?.mediaType || "",
+      createdAt: serverTimestamp()
+    });
+
+    $("postText").value = "";
+    $("mediaFile").value = "";
+    $("previewBox").replaceChildren();
+    selectedFile = null;
+    message("postMessage", "Your post has been published!");
+    showTab("feed");
+  } catch (e) {
+    message("postMessage", e.message, true);
+  } finally {
+    $("publishBtn").disabled = false;
+  }
+});
+
+function listenToFeed() {
+  if (stopFeed) stopFeed();
+
+  const postsQuery = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+
+  stopFeed = onSnapshot(postsQuery, snapshot => {
+    const feed = $("feed");
+    feed.replaceChildren();
+
+    if (snapshot.empty) {
+      const empty = document.createElement("div");
+      empty.className = "panel small";
+      empty.textContent = "No posts yet. Be the first to share something!";
+      feed.appendChild(empty);
+      return;
+    }
+
+    snapshot.forEach(postDoc => {
+      const post = postDoc.data();
+      const card = document.createElement("article");
+      card.className = "post";
+
+      const head = document.createElement("div");
+      head.className = "posthead";
+
+      const author = document.createElement("div");
+      const name = document.createElement("div");
+      name.className = "username";
+      name.textContent = post.displayName || post.email || "WAPCHAT User";
+      const email = document.createElement("div");
+      email.className = "posttime";
+      email.textContent = post.email || "";
+      author.append(name, email);
+
+      const time = document.createElement("div");
+      time.className = "posttime";
+      time.textContent = post.createdAt?.toDate
+        ? post.createdAt.toDate().toLocaleString()
+        : "Just now";
+
+      head.append(author, time);
+      card.appendChild(head);
+
+      if (post.text) {
+        const body = document.createElement("div");
+        body.className = "postbody";
+        body.textContent = post.text;
+        card.appendChild(body);
+      }
+
+      if (post.mediaUrl && post.mediaType === "image") {
+        const img = document.createElement("img");
+        img.src = post.mediaUrl;
+        img.alt = "Shared photo";
+        img.loading = "lazy";
+        card.appendChild(img);
+      }
+
+      if (post.mediaUrl && post.mediaType === "video") {
+        const video = document.createElement("video");
+        video.src = post.mediaUrl;
+        video.controls = true;
+        video.preload = "metadata";
+        card.appendChild(video);
+      }
+
+      feed.appendChild(card);
+    });
+  }, error => {
+    $("feed").textContent = "Feed error: " + error.message;
+  });
+}
+
+function showTab(tab) {
+  ["feed","create","profile","chat","calls"].forEach(name => {
+    $(name + "Tab").classList.toggle("hidden", name !== tab);
+  });
+
+  document.querySelectorAll(".tabs button").forEach(button => {
+    button.classList.toggle("active", button.dataset.tab === tab);
+  });
+}
+
+document.querySelectorAll(".tabs button").forEach(button => {
+  button.addEventListener("click", () => showTab(button.dataset.tab));
+});
 </script>
 </body>
 </html>
