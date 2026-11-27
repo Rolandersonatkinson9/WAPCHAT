@@ -1,199 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>WAPCHAT</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',Arial,sans-serif}
-body{background:#08060f;color:#fff;min-height:100vh}
-:root{--violet:#8b5cf6;--violet2:#a855f7;--bg:#08060f;--card:#120d22;--card2:#1c1533;--border:#2e2350}
-.top{position:sticky;top:0;z-index:10;background:rgba(8,6,15,.95);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
-.top b{font-size:24px;letter-spacing:3px;background:linear-gradient(90deg,#c084fc,#8b5cf6,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.tabs{display:flex;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:53px;z-index:9}
-.tabs button{flex:1;padding:13px 2px;background:none;border:none;color:#9d8fd6;font-size:11px;font-weight:700;cursor:pointer;border-bottom:3px solid transparent}
-.tabs button.active{color:#fff;border-bottom-color:var(--violet)}
-.page{padding:14px 14px 90px;max-width:520px;margin:auto;display:none}
-.page.active{display:block}
-.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:14px;margin-bottom:12px}
-input,textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:#08060f;color:#fff;outline:none;margin-bottom:10px;font-size:14px}
-input:focus{border-color:var(--violet)}
-.btn{width:100%;padding:12px;border:none;border-radius:12px;background:linear-gradient(90deg,#7c3aed,#a855f7);color:#fff;font-weight:800;cursor:pointer;margin-bottom:8px}
-.btn.outline{background:#1c1533;border:1px solid var(--violet)}
-.btn.small{width:auto;padding:7px 12px;font-size:12px;margin:0}
-.row{display:flex;gap:8px;align-items:center}
-.avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;flex-shrink:0;overflow:hidden}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial}
+body{background:#08060f;color:#fff}
+.top{padding:14px;text-align:center;background:linear-gradient(90deg,#7c3aed,#ec4899);font-weight:900;font-size:24px;letter-spacing:3px}
+.box{max-width:420px;margin:20px auto;padding:16px}
+.card{background:#120d22;border:1px solid #2e2350;border-radius:16px;padding:14px;margin-bottom:12px}
+input,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #2e2350;background:#08060f;color:#fff;margin-bottom:10px}
+.btn{width:100%;padding:12px;border:none;border-radius:12px;background:#8b5cf6;color:#fff;font-weight:800;margin-bottom:8px}
+.btn2{background:#1c1533;border:1px solid #8b5cf6}
+.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#ec4899);display:flex;align-items:center;justify-content:center;font-weight:900;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
-.avatar.big{width:90px;height:90px;font-size:36px;margin:auto}
-.item{display:flex;gap:10px;align-items:center;padding:10px;border-radius:14px;cursor:pointer;background:var(--card);border:1px solid var(--border);margin-bottom:8px}
-.item small{color:#a78bfa;font-size:11px;display:block}
-.badge{background:#ec4899;color:#fff;font-size:10px;padding:2px 7px;border-radius:20px}
-#chatView{position:fixed;inset:0;background:var(--bg);z-index:50;display:none;flex-direction:column}
-.chatHead{padding:12px 14px;display:flex;gap:10px;align-items:center;background:var(--card);border-bottom:1px solid var(--border)}
-.chatHead b{flex:1}
-#msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px}
-.bubble{max-width:82%;padding:10px 13px;border-radius:18px;font-size:14px;line-height:1.4;background:var(--card2);align-self:flex-start;border-bottom-left-radius:4px}
-.bubble.me{background:linear-gradient(135deg,#7c3aed,#a855f7);align-self:flex-end;border-bottom-right-radius:4px;border-bottom-left-radius:18px}
-.bubble small{display:block;font-size:10px;opacity:.7}
-.bubble img,.bubble video{width:100%;border-radius:12px;margin-top:6px;max-height:240px;object-fit:cover}
-.sendBar{display:flex;gap:8px;padding:10px;background:var(--card);border-top:1px solid var(--border)}
-.sendBar input{margin:0;border-radius:24px}
-.sendBar button{width:52px;border-radius:24px}
-.iconBtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--card2);color:#fff;font-size:18px;cursor:pointer}
-.post img,.post video{width:100%;border-radius:14px;margin-top:10px;max-height:320px;object-fit:cover}
-.post p{margin-top:8px;line-height:1.5;font-size:14px}
-.post .meta{font-size:11px;color:#a78bfa}
-#callView{position:fixed;inset:0;background:#000;z-index:100;display:none;flex-direction:column}
-#callView video{flex:1;width:100%;object-fit:cover;background:#111}
-.callBtns{display:flex;justify-content:center;gap:12px;padding:18px}
-.callBtns button{width:56px;height:56px;border-radius:50%;border:none;font-size:20px;cursor:pointer}
-.auth{max-width:420px;margin:40px auto;padding:20px}
-.auth h1{font-size:42px;text-align:center;background:linear-gradient(90deg,#c084fc,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:4px}
-.auth p{text-align:center;color:#a78bfa;font-size:13px;margin:6px 0 20px}
-.hidden{display:none!important}
-.fileLabel{display:block;text-align:center;padding:10px;border:1px dashed var(--violet);border-radius:12px;font-size:13px;color:#c084fc;margin-bottom:10px;cursor:pointer}
-.privacy{font-size:11px;color:#4ade80;text-align:center;margin-top:8px}
-</style>
-</head>
-<body>
-
-<div id="authPage" class="auth">
-<h1>WAPCHAT</h1><p>Private • Violet Black Edition</p>
-<input id="email" type="email" placeholder="Email - PRIVATE, hindi makikita ng iba 🔒">
+.item{display:flex;gap:10px;align-items:center;background:#120d22;border:1px solid #2e2350;padding:10px;border-radius:14px;margin-bottom:8px}
+.bubble{max-width:80%;padding:10px 13px;border-radius:16px;background:#1c1533;margin-bottom:8px}
+.bubble.me{background:#8b5cf6;margin-left:auto}
+.tabs{display:flex;gap:6px;margin-bottom:12px}
+.tabs button{flex:1;padding:10px;border:none;border-radius:12px;background:#1c1533;color:#fff}
+.tabs button.on{background:#8b5cf6}
+.hidden{display:none}
+</style></head><body>
+<div class="top">WAPCHAT</div>
+<div id="auth" class="box">
+<div class="card"><h2>Login</h2><p style="font-size:12px;color:#a78bfa;margin:6px 0">Email mo ay PRIVATE 🔒</p>
+<input id="email" type="email" placeholder="Email">
 <input id="password" type="password" placeholder="Password">
-<button class="btn" id="loginBtn">Login →</button>
-<button class="btn outline" id="signupBtn">Create Account</button>
-<div id="authMsg" style="text-align:center;font-size:13px;color:#fda4af;min-height:18px"></div>
-<div class="privacy">🔒 Email mo ay PRIVATE. Username lang makikita ng friends mo.</div>
+<button class="btn" id="loginBtn">Login</button>
+<button class="btn btn2" id="signupBtn">Create Account</button>
+<div id="msg" style="text-align:center;color:#fda4af;font-size:13px;min-height:18px"></div></div>
 </div>
-
-<div id="mainPage" class="hidden">
-<div class="top"><b>WAPCHAT</b><div style="text-align:right"><div id="myNameTop" style="font-weight:800;font-size:13px">You</div><div style="font-size:11px;color:#4ade80">● Online</div></div><button class="iconBtn" id="logoutBtn">↪</button></div>
-<div class="tabs">
-<button class="tabBtn active" data-tab="chats">💬 Chats</button>
-<button class="tabBtn" data-tab="friends">👥 Friends</button>
-<button class="tabBtn" data-tab="groups">👨‍👩‍👧 Groups</button>
-<button class="tabBtn" data-tab="feed">📸 Feed</button>
-<button class="tabBtn" data-tab="profile">👤 Profile</button>
-<button class="tabBtn" data-tab="calls">📞 Calls</button>
+<div id="main" class="box hidden">
+<div class="card" style="text-align:center">
+<div class="avatar" id="myAvatar" style="width:80px;height:80px;font-size:30px;margin:auto">?</div>
+<h3 id="myName">Loading...</h3>
+<p id="myEmailShow" style="font-size:12px;color:#a78bfa"></p>
+<p style="font-size:11px;color:#4ade80">🔒 Email: Only you can see this</p>
 </div>
-
-<div id="tab-chats" class="page active">
-<div class="card"><b>Start Private Chat</b><p style="font-size:12px;color:#a78bfa;margin:6px 0">Type friend's USERNAME to chat</p><div class="row"><input id="privateEmail" placeholder="Username - e.g. Roland" style="margin:0"><button class="btn small" id="startPrivateBtn">Chat</button></div></div>
+<div class="tabs"><button id="tChat" class="on">Chats</button><button id="tFriend">Friends</button><button id="tFeed">Feed</button><button id="tProfile">Profile</button></div>
+<div id="pChat">
+<div class="card"><b>Private Chat by Username</b><input id="chatUser" placeholder="Username ng friend"><button class="btn" id="openChatBtn">Open Chat</button></div>
 <div id="chatList"></div>
+<div id="chatBox" class="card hidden"><b id="chatTitle">Chat</b><div id="msgs" style="max-height:300px;overflow:auto;margin:10px 0"></div><input id="chatInput" placeholder="Type..."><button class="btn" id="sendBtn">Send</button></div>
 </div>
-
-<div id="tab-friends" class="page">
-<div class="card"><b>Add Friend by Username</b><p style="font-size:12px;color:#a78bfa;margin:6px 0">Hindi na email, username na lang para private!</p><div class="row"><input id="friendEmail" placeholder="Username" style="margin:0"><button class="btn small" id="addFriendBtn">Add</button></div><div id="friendMsg" style="font-size:12px;color:#fda4af"></div></div>
-<div class="card"><b>Friend Requests</b><div id="requestsList"></div></div>
-<div class="card"><b>My Friends</b><div id="friendsList"></div></div>
+<div id="pFriend" class="hidden">
+<div class="card"><b>Add Friend by Username</b><input id="friendUser" placeholder="Username"><button class="btn" id="addFriendBtn">Add Friend</button><div id="fMsg" style="font-size:12px;color:#fda4af"></div></div>
+<div class="card"><b>Requests</b><div id="reqList"></div></div>
+<div class="card"><b>My Friends</b><div id="friendList"></div></div>
 </div>
-
-<div id="tab-groups" class="page">
-<div class="card"><b>Create Group</b><input id="groupName" placeholder="Group name"><input id="groupMembers" placeholder="Members username, comma separated"><button class="btn" id="createGroupBtn">Create Group</button></div>
-<div id="groupList"></div>
-</div>
-
-<div id="tab-feed" class="page">
-<div class="card"><b>What's on your mind?</b><textarea id="caption" placeholder="Write caption... Only friends can see this"></textarea>
-<label class="fileLabel">📷 / 🎥 Choose Photo or Video<input type="file" id="postFile" accept="image/*,video/*" style="display:none"></label>
-<div id="preview"></div>
-<button class="btn" id="postBtn">Post to Friends Only 🔒</button></div>
+<div id="pFeed" class="hidden">
+<div class="card"><textarea id="caption" placeholder="Caption - friends only"></textarea><input type="file" id="postFile" accept="image/*,video/*"><button class="btn" id="postBtn">Post to Friends Only 🔒</button></div>
 <div id="feedList"></div>
 </div>
-
-<div id="tab-profile" class="page">
-<div class="card" style="text-align:center">
-<div class="avatar big" id="profileAvatar">?</div>
-<h2 id="profileName" style="margin:10px 0 4px">Loading...</h2>
-<p id="profileEmailPrivate" style="font-size:12px;color:#a78bfa">🔒 Email: Private - Only you can see this</p>
-<p style="font-size:11px;color:#888;margin-top:6px">Other users see only your Username + Profile Pic</p>
-</div>
-<div class="card"><b>Edit Profile</b>
-<label style="font-size:12px;color:#a78bfa">Username (makikita ng lahat)</label><input id="editUsername" placeholder="e.g. Roland">
-<label style="font-size:12px;color:#a78bfa">Bio</label><input id="editBio" placeholder="e.g. Hello I'm Roland!">
-<label class="fileLabel">🖼️ Change Profile Picture<input type="file" id="profilePicFile" accept="image/*" style="display:none"></label>
-<div id="profilePreview"></div>
-<button class="btn" id="saveProfileBtn">Save Profile</button>
-<div id="profileMsg" style="font-size:12px;text-align:center;color:#4ade80"></div>
+<div id="pProfile" class="hidden">
+<div class="card"><b>Edit Profile</b><input id="editName" placeholder="Username"><input id="editBio" placeholder="Bio"><input type="file" id="picFile" accept="image/*"><button class="btn" id="saveBtn">Save Profile</button><div id="pMsg" style="font-size:12px;color:#4ade80"></div></div>
+<button class="btn btn2" id="logoutBtn">Logout</button>
 </div>
 </div>
-
-<div id="tab-calls" class="page">
-<div class="card"><b>Video / Audio Call</b><input id="callEmail" placeholder="Friend's Username"><div class="row"><button class="btn" id="videoCallBtn">📹 Video</button><button class="btn outline" id="audioCallBtn">🎤 Audio</button></div><div id="callMsg" style="font-size:12px;color:#fda4af"></div></div>
-<div class="card"><b>Incoming Calls</b><div id="incomingCalls"></div></div>
-</div>
-</div>
-
-<div id="chatView">
-<div class="chatHead"><button class="iconBtn" onclick="closeChat()">←</button><div class="avatar" id="chatAvatar">W</div><b id="chatTitle">Chat</b><button class="iconBtn" onclick="startCallFromChat(true)">📹</button><button class="iconBtn" onclick="startCallFromChat(false)">📞</button></div>
-<div id="msgs"></div>
-<div class="sendBar"><input id="chatInput" placeholder="Aa"><label style="cursor:pointer;font-size:20px">📷<input type="file" id="chatFile" accept="image/*,video/*" style="display:none"></label><button class="btn" id="sendBtn">➤</button></div>
-</div>
-
-<div id="callView">
-<video id="remoteVideo" autoplay playsinline></video>
-<video id="localVideo" autoplay muted playsinline style="position:absolute;top:10px;right:10px;width:120px;height:160px;border-radius:12px;border:2px solid #8b5cf6;object-fit:cover"></video>
-<div style="position:absolute;top:14px;left:14px;background:rgba(0,0,0,.6);padding:8px 12px;border-radius:20px;font-size:13px" id="callStatus">Connecting...</div>
-<div class="callBtns"><button style="background:#22c55e" onclick="toggleMic()">🎤</button><button style="background:#eab308" onclick="toggleCam()">📷</button><button style="background:#ef4444" onclick="endCall()">📞</button></div>
-</div>
-
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, collection, addDoc, doc, setDoc, getDoc, getDocs, query, where, orderBy, onSnapshot, serverTimestamp, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-const firebaseConfig = { apiKey: "AIzaSyDc2Yx3c3MtujTck2_lHHUqV0vrbgu6sZY", authDomain: "wapchat-f6126.firebaseapp.com", projectId: "wapchat-f6126", storageBucket: "wapchat-f6126.firebasestorage.app", messagingSenderId: "257085623528", appId: "1:257085623528:web:8f7c3e27eaabeec19bcd5d", measurementId: "G-EXD1XBTTVH" };
-const app=initializeApp(firebaseConfig); const auth=getAuth(app); const db=getFirestore(app);
-let currentChatId=null, currentChatType='private', currentChatName='', unsubChat=null, myFriends=[], myUsername='', myProfilePic='', usersMap={}, postFileData=null, postFileType='image', chatFileData=null, chatFileType='image', newProfilePic=null;
-let localStream=null, pc=null, currentCallId=null;
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,collection,addDoc,doc,setDoc,getDoc,getDocs,query,where,orderBy,onSnapshot,serverTimestamp,updateDoc,deleteDoc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const cfg={apiKey:"AIzaSyDc2Yx3c3MtujTck2_lHHUqV0vrbgu6sZY",authDomain:"wapchat-f6126.firebaseapp.com",projectId:"wapchat-f6126",storageBucket:"wapchat-f6126.firebasestorage.app",messagingSenderId:"257085623528",appId:"1:257085623528:web:8f7c3e27eaabeec19bcd5d"};
+const app=initializeApp(cfg);const auth=getAuth(app);const db=getFirestore(app);
 const $=id=>document.getElementById(id);
-// Helper: get user profile by email, but NEVER show email to others - only username+pic
-async function getUserByUsername(username){ const q=query(collection(db,'users'),where('username','==',username)); const s=await getDocs(q); if(s.empty) return null; return {id:s.docs[0].id, ...s.docs[0].data()}; }
-async function getUserByEmail(email){ const d=await getDoc(doc(db,'users',email)); return d.exists()? d.data():null; }
-function displayName(email){ const u=usersMap[email]; return u? (u.username||email.split('@')[0]) : email.split('@')[0]; }
-function displayPic(email){ const u=usersMap[email]; return u?.profilePic||''; }
-function avatarHTML(email,size=''){ const pic=displayPic(email); const name=displayName(email); return `<div class="avatar ${size}">${pic?`<img src="${pic}">`:name[0].toUpperCase()}</div>`; }
-async function ensureProfile(user){ const ref=doc(db,'users',user.email); const snap=await getDoc(ref); if(!snap.exists()){ const uname=user.email.split('@')[0]; await setDoc(ref,{email:user.email, username:uname, bio:'', profilePic:'', createdAt:serverTimestamp()}); } const data=(await getDoc(ref)).data(); myUsername=data.username; myProfilePic=data.profilePic||''; $('myNameTop').textContent=myUsername; $('profileName').textContent=myUsername; $('profileEmailPrivate').textContent='🔒 Email: '+user.email+' - Only you can see this'; $('editUsername').value=myUsername; $('editBio').value=data.bio||''; $('profileAvatar').innerHTML=myProfilePic?`<img src="${myProfilePic}">`:myUsername[0].toUpperCase(); usersMap[user.email]=data; }
-$('loginBtn').onclick=async()=>{try{await signInWithEmailAndPassword(auth,$('email').value.trim(),$('password').value);$('authMsg').textContent='Login success!'}catch(e){$('authMsg').textContent=e.message}};
-$('signupBtn').onclick=async()=>{try{await createUserWithEmailAndPassword(auth,$('email').value.trim(),$('password').value);$('authMsg').textContent='Account created! Set your username in Profile.'}catch(e){$('authMsg').textContent=e.message}};
-$('logoutBtn').onclick=()=>signOut(auth);
-document.querySelectorAll('.tabBtn').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabBtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$('tab-'+b.dataset.tab).classList.add('active')});
-$('profilePicFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{newProfilePic=r.result;$('profilePreview').innerHTML=`<img src="${newProfilePic}" style="width:100%;border-radius:12px;max-height:200px;object-fit:cover">`};r.readAsDataURL(f)};
-$('saveProfileBtn').onclick=async()=>{const uname=$('editUsername').value.trim();if(!uname)return;try{await updateDoc(doc(db,'users',auth.currentUser.email),{username:uname,bio:$('editBio').value.trim(), ...(newProfilePic?{profilePic:newProfilePic}:{})}); myUsername=uname; if(newProfilePic)myProfilePic=newProfilePic; $('profileMsg').textContent='Profile saved! Username: '+uname+' • Email stays private.'; $('myNameTop').textContent=uname; $('profileName').textContent=uname; $('profileAvatar').innerHTML=myProfilePic?`<img src="${myProfilePic}">`:uname[0].toUpperCase(); loadAll();}catch(e){$('profileMsg').textContent=e.message}};
-$('addFriendBtn').onclick=async()=>{const uname=$('friendEmail').value.trim();if(!uname)return;const target=await getUserByUsername(uname);if(!target){$('friendMsg').textContent='Username not found';return}if(target.email===auth.currentUser.email){$('friendMsg').textContent='Cannot add yourself';return}try{await addDoc(collection(db,'friendRequests'),{from:auth.currentUser.email,fromName:myUsername,to:target.email,toName:target.username,status:'pending',createdAt:serverTimestamp()});$('friendMsg').textContent='Request sent to '+uname;}catch(e){$('friendMsg').textContent=e.message}};
-$('startPrivateBtn').onclick=async()=>{const uname=$('privateEmail').value.trim();const t=await getUserByUsername(uname);if(!t)return alert('Username not found');const id=[auth.currentUser.email,t.email].sort().join('_');openChat(id,'private',t.username,t.email)};
-$('createGroupBtn').onclick=async()=>{const name=$('groupName').value.trim();if(!name)return;const names=$('groupMembers').value.split(',').map(s=>s.trim()).filter(Boolean);let members=[auth.currentUser.email];for(let n of names){const u=await getUserByUsername(n);if(u)members.push(u.email)}try{const ref=await addDoc(collection(db,'groups'),{name,members,createdBy:auth.currentUser.email,createdAt:serverTimestamp()});openChat(ref.id,'group',name);}catch(e){alert(e.message)}};
-$('postFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{postFileData=r.result;postFileType=f.type.startsWith('video')?'video':'image';$('preview').innerHTML=postFileType==='video'?`<video src="${postFileData}" controls style="width:100%;border-radius:12px"></video>`:`<img src="${postFileData}" style="width:100%;border-radius:12px">`};r.readAsDataURL(f)};
-$('postBtn').onclick=async()=>{const cap=$('caption').value.trim();if(!cap && !postFileData)return alert('Write something');try{await addDoc(collection(db,'posts'),{email:auth.currentUser.email,username:myUsername,profilePic:myProfilePic,caption:cap,media:postFileData||'',mediaType:postFileType,createdAt:serverTimestamp()});$('caption').value='';$('preview').innerHTML='';postFileData=null;alert('Posted! Friends only.')}catch(e){alert(e.message)}};
-$('chatFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{chatFileData=r.result;chatFileType=f.type.startsWith('video')?'video':'image';sendMessage()};r.readAsDataURL(f)};
-$('sendBtn').onclick=()=>sendMessage();
-async function sendMessage(){const text=$('chatInput').value.trim();if(!text && !chatFileData)return;try{const col=currentChatType==='private'?'messages':'groupMessages';await addDoc(collection(db,col),{chatId:currentChatId,text,email:auth.currentUser.email,username:myUsername,profilePic:myProfilePic,media:chatFileData||'',mediaType:chatFileType,createdAt:serverTimestamp()});$('chatInput').value='';chatFileData=null;}catch(e){alert(e.message)}}
-function openChat(id,type,name,otherEmail){currentChatId=id;currentChatType=type;currentChatName=name;$('chatTitle').textContent=name;$('chatAvatar').innerHTML=otherEmail&&displayPic(otherEmail)?`<img src="${displayPic(otherEmail)}">`:name[0].toUpperCase();$('chatView').style.display='flex';if(unsubChat)unsubChat();const col=type==='private'?'messages':'groupMessages';const q=query(collection(db,col),where('chatId','==',id),orderBy('createdAt'));unsubChat=onSnapshot(q,(snap)=>{const box=$('msgs');box.innerHTML='';snap.forEach(d=>{const m=d.data();const isMe=m.email===auth.currentUser.email;const div=document.createElement('div');div.className='bubble'+(isMe?' me':'');let media='';if(m.media){media=m.mediaType==='video'?`<video src="${m.media}" controls></video>`:`<img src="${m.media}">`}div.innerHTML=`<small>${isMe?'You':(m.username||displayName(m.email))}</small>${m.text||''}${media}`;box.appendChild(div)});box.scrollTop=box.scrollHeight})}
-window.closeChat=()=>{$('chatView').style.display='none';if(unsubChat)unsubChat();unsubChat=null};
-window.startCallFromChat=async(video)=>{if(currentChatType!=='private'){alert('Call only for private');return}const uname=currentChatName;startCall(uname,video)};
-onAuthStateChanged(auth,async(user)=>{if(user){$('authPage').classList.add('hidden');$('mainPage').classList.remove('hidden');await ensureProfile(user);loadAll();}else{$('authPage').classList.remove('hidden');$('mainPage').classList.add('hidden')}});
-async function loadAll(){await loadUsersMap();loadFriends();loadRequests();loadChats();loadGroups();loadFeed();listenCalls()}
-async function loadUsersMap(){const s=await getDocs(collection(db,'users'));s.forEach(d=>{usersMap[d.id]=d.data()})}
-async function loadFriends(){const q1=query(collection(db,'friendRequests'),where('from','==',auth.currentUser.email),where('status','==','accepted'));const q2=query(collection(db,'friendRequests'),where('to','==',auth.currentUser.email),where('status','==','accepted'));const [s1,s2]=await Promise.all([getDocs(q1),getDocs(q2)]);myFriends=[];s1.forEach(d=>myFriends.push(d.data().to));s2.forEach(d=>myFriend
-s.push(d.data().from));myFriends=[...new Set(myFriends)];$('friendsList').innerHTML=myFriends.length?myFriends.map(f=>`<div class="item" onclick="openFriendChat('${f}')">${avatarHTML(f)}<div style="flex:1"><b>${displayName(f)}</b><small>Tap to chat • Email hidden 🔒</small></div><span class="badge">Friend</span></div>`).join(''):'<p style="color:#888;font-size:13px">No friends yet</p>';}
-window.openFriendChat=(email)=>{const id=[auth.currentUser.email,email].sort().join('_');openChat(id,'private',displayName(email),email)};
-function loadRequests(){const q=query(collection(db,'friendRequests'),where('to','==',auth.currentUser.email),where('status','==','pending'));onSnapshot(q,(snap)=>{if(snap.empty){$('requestsList').innerHTML='<p style="color:#888;font-size:13px">No requests</p>';return}$('requestsList').innerHTML='';snap.forEach(d=>{const r=d.data();const div=document.createElement('div');div.className='item';div.innerHTML=`${avatarHTML(r.from)}<div style="flex:1"><b>${r.fromName||displayName(r.from)}</b><small>Wants to be your friend</small></div><button class="btn small" onclick="acceptReq('${d.id}')">Accept</button><button class="btn small" style="background:#ef4444" onclick="declineReq('${d.id}')">Decline</button>`;$('requestsList').appendChild(div)})})}
-window.acceptReq=async(id)=>{await updateDoc(doc(db,'friendRequests',id),{status:'accepted'});loadFriends()};
-window.declineReq=async(id)=>{await deleteDoc(doc(db,'friendRequests',id))};
-function loadChats(){$('chatList').innerHTML=myFriends.length?myFriends.map(f=>{const id=[auth.currentUser.email,f].sort().join('_');return `<div class="item" onclick="openFriendChat('${f}')">${avatarHTML(f)}<div style="flex:1"><b>${displayName(f)}</b><small>Private chat • Tap to open</small></div>💬</div>`}).join(''):'<p style="color:#888;font-size:13px">Add friends to start chatting.</p>';}
-function loadGroups(){const q=query(collection(db,'groups'),where('members','array-contains',auth.currentUser.email));onSnapshot(q,(snap)=>{if(snap.empty){$('groupList').innerHTML='<p style="color:#888;font-size:13px">No groups</p>';return}$('groupList').innerHTML='';snap.forEach(d=>{const g=d.data();const div=document.createElement('div');div.className='item';div.onclick=()=>openChat(d.id,'group',g.name);div.innerHTML=`<div class="avatar" style="border-radius:14px">👥</div><div style="flex:1"><b>${g.name}</b><small>${g.members.length} members</small></div>→`;$('groupList').appendChild(div)})})}
-function loadFeed(){const q=query(collection(db,'posts'),orderBy('createdAt','desc'));onSnapshot(q,(snap)=>{const allowed=[...myFriends,auth.currentUser.email];$('feedList').innerHTML='';snap.forEach(d=>{const p=d.data();if(!allowed.includes(p.email))return;const div=document.createElement('div');div.className='card post';let media='';if(p.media){media=p.mediaType==='video'?`<video src="${p.media}" controls></video>`:`<img src="${p.media}">`}div.innerHTML=`<div class="row">${avatarHTML(p.email)}<div><b style="font-size:14px">${p.username||displayName(p.email)}</b><div class="meta">Friends only 🔒 • Email hidden</div></div></div><p>${p.caption||''}</p>${media}`;$('feedList').appendChild(div)});if(!$('feedList').innerHTML)$('feedList').innerHTML='<p style="color:#888;font-size:13px;text-align:center">No posts from friends yet</p>'})}
-$('videoCallBtn').onclick=()=>startCall($('callEmail').value.trim(),true);
-$('audioCallBtn').onclick=()=>startCall($('callEmail').value.trim(),false);
-async function startCall(username,video){if(!username)return alert('Enter username');const target=await getUserByUsername(username);if(!target)return alert('Username not found');if(!myFriends.includes(target.email))return alert('Add as friend first');try{const callDoc=await addDoc(collection(db,'calls'),{from:auth.currentUser.email,fromName:myUsername,to:target.email,toName:target.username,video,status:'ringing',createdAt:serverTimestamp()});currentCallId=callDoc.id;openCallUI('Calling '+username+'...');await setupWebRTC(callDoc.id,true,video);}catch(e){$('callMsg').textContent=e.message}}
-function listenCalls(){const q=query(collection(db,'calls'),where('to','==',auth.currentUser.email),where('status','==','ringing'));onSnapshot(q,(snap)=>{if(snap.empty){$('incomingCalls').innerHTML='<p style="color:#888;font-size:13px">No incoming calls</p>';return}$('incomingCalls').innerHTML='';snap.forEach(d=>{const c=d.data();const div=document.createElement('div');div.className='item';div.innerHTML=`${avatarHTML(c.from)}<div style="flex:1"><b>${c.fromName||displayName(c.from)}</b><small>${c.video?'Video':'Audio'} Call</small></div><button class="btn small" onclick="answerCall('${d.id}',${c.video})">Answer</button><button class="btn small" style="background:#ef4444" onclick="declineCall('${d.id}')">Decline</button>`;$('incomingCalls').appendChild(div)})})}
-window.answerCall=async(id,video)=>{currentCallId=id;await updateDoc(doc(db,'calls',id),{status:'accepted'});openCallUI('Connected');await setupWebRTC(id,false,video)};
-window.declineCall=async(id)=>{await updateDoc(doc(db,'calls',id),{status:'declined'})};
-async function setupWebRTC(callId,isCaller,video){localStream=await navigator.mediaDevices.getUserMedia({video:video,audio:true});$('localVideo').srcObject=localStream;pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});localStream.getTracks().forEach(t=>pc.addTrack(t,localStream));pc.ontrack=e=>{$('remoteVideo').srcObject=e.streams[0]};const callRef=doc(db,'calls',callId);pc.onicecandidate=e=>{if(e.candidate){addDoc(collection(db,'calls',callId,'candidates'),{candidate:e.candidate.toJSON(),from:auth.currentUser.email})}};onSnapshot(collection(db,'calls',callId,'candidates'),(snap)=>{snap.docChanges().forEach(ch=>{if(ch.type==='added'){const data=ch.doc.data();if(data.from!==auth.currentUser.email){pc.addIceCandidate(new RTCIceCandidate(data.candidate))}}})});if(isCaller){const offer=await pc.createOffer();await pc.setLocalDescription(offer);await updateDoc(callRef,{offer:{type:offer.type,sdp:offer.sdp}});onSnapshot(callRef,(snap)=>{const d=snap.data();if(d?.answer && !pc.currentRemoteDescription){pc.setRemoteDescription(new RTCSessionDescription(d.answer))}})}else{onSnapshot(callRef,async(snap)=>{const d=snap.data();if(d?.offer && !pc.currentRemoteDescription){await pc.setRemoteDescription(new RTCSessionDescription(d.offer));const ans=await pc.createAnswer();await pc.setLocalDescription(ans);await updateDoc(callRef,{answer:{type:ans.type,sdp:ans.sdp}})}})}}
-function openCallUI(text){$('callView').style.display='flex';$('callStatus').textContent=text}
-window.toggleMic=()=>{if(localStream)localStream.getAudioTracks().forEach(t=>t.enabled=!t.enabled)};
-window.toggleCam=()=>{if(localStream)localStream.getVideoTracks().forEach(t=>t.enabled=!t.enabled)};
-window.endCall=async()=>{if(pc)pc.close();if(localStream)localStream.getTracks().forEach(t=>t.stop());$('callView').style.display='none';if(currentCallId)await updateDoc(doc(db,'calls',currentCallId),{status:'ended'});currentCallId=null};
-</script>
-</body>
-</html>
+let myUser=null,myFriends=[],curChat=null,unsub=null,postData="",postType="image",newPic="";
+$("loginBtn").onclick=async()=>{$("msg").textContent="Logging in...";try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);$("msg").textContent="Login success!"}catch(e){$("msg").textContent=e.message}};
+$("signupBtn").onclick=async()=>{$("msg").textContent="Creating...";try{await createUserWithEmailAndPassword(auth,$("email").value.trim(),$("password").value);$("msg").textContent="Account created!"}catch(e){$("msg").textContent=e.message}};
+$("logoutBtn").onclick=()=>signOut(auth);
+function showTab(t){["pChat","pFriend","pFeed","pProfile"].forEach(x=>$(x).classList.add("hidden"));$(t).classList.remove("hidden");["tChat","tFriend","tFeed","tProfile"].forEach(x=>$(x).classList.remove("on"));if(t=="pChat")$("tChat").classList.add("on");if(t=="pFriend")$("tFriend").classList.add("on");if(t=="pFeed")$("tFeed").classList.add("on");if(t=="pProfile")$("tProfile").classList.add("on");}
+$("tChat").onclick=()=>showTab("pChat");$("tFriend").onclick=()=>showTab("pFriend");$("tFeed").onclick=()=>showTab("pFeed");$("tProfile").onclick=()=>showTab("pProfile");
+async function ensureUser(u){const ref=doc(db,"users",u.email);const s=await getDoc(ref);if(!s.exists()){await setDoc(ref,{email:u.email,username:u.email.split("@")[0],bio:"",profilePic:"",createdAt:serverTimestamp()});}const d=(await getDoc(ref)).data();myUser=d;updateProfileUI();}
+function updateProfileUI(){$("myName").textContent=myUser.username;$("myEmailShow").textContent="🔒 "+myUser.email;$("myAvatar").innerHTML=myUser.profilePic?`<img src="${myUser.profilePic}">`:myUser.username[0].toUpperCase();$("editName").value=myUser.username;$("editBio").value=myUser.bio||"";}
+$("picFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{newPic=r.result};r.readAsDataURL(f)};
+$("saveBtn").onclick=async()=>{try{await updateDoc(doc(db,"users",auth.currentUser.email),{username:$("editName").value.trim(),bio:$("editBio").value.trim(),...(newPic?{profilePic:newPic}:{})});myUser.username=$("editName").value.trim();if(newPic)myUser.profilePic=newPic;updateProfileUI();$("pMsg").textContent="Saved! Email stays private.";}catch(e){$("pMsg").textContent=e.message}};
+async function findUser(name){const q=query(collection(db,"users"),where("username","==",name));const s=await getDocs(q);if(s.empty)return null;return s.docs[0].data();}
+$("addFriendBtn").onclick=async()=>{const n=$("friendUser").value.trim();const t=await findUser(n);if(!t){$("fMsg").textContent="Username not found";return}await addDoc(collection(db,"friendRequests"),{from:auth.currentUser.email,fromName:myUser.username,to:t.email,toName:t.username,status:"pending",createdAt:serverTimestamp()});$("fMsg").textContent="Request sent to "+n;};
+function loadFriends(){onSnapshot(query(collection(db,"friendRequests"),where("to","==",auth.currentUser.email),where("status","==","pending")),snap=>{if(snap.empty){$("reqList").innerHTML="No requests";return}$("reqList").innerHTML="";snap.forEach(d=>{const r=d.data();const div=document.createElement("div");div.className="item";div.innerHTML=`<b>${r.fromName}</b><button onclick="acceptReq('${d.id}')">Accept</button><button onclick="declineReq('${d.id}')">Decline</button>`;$("reqList").appendChild(div)})});}
+window.acceptReq=async(id)=>{await updateDoc(doc(db,"friendRequests",id),{status:"accepted"});loadAll()};
+window.declineReq=async(id)=>{await deleteDoc(doc(db,"friendRequests",id))};
+async function loadAll(){const q1=query(collection(db,"friendRequests"),where("from","==",auth.currentUser.email),where("status","==","accepted"));const q2=query(collection(db,"friendRequests"),where("to","==",auth.currentUser.email),where("status","==","accepted"));const a=await getDocs(q1);const b=await getDocs(q2);myFriends=[];a.forEach(d=>myFriends.push(d.data().to));b.forEach(d=>myFriends.push(d.data().from));myFriends=[...new Set(myFriends)];let users={};const all=await getDocs(collection(db,"users"));all.forEach(d=>users[d.id]=d.data());$("friendList").innerHTML=myFriends.map(f=>`<div class="item"><b>${users[f]?.username||f.split("@")[0]}</b><small> Email hidden 🔒</small></div>`).join("")||"No friends";$("chatList").innerHTML=myFriends.map(f=>`<div class="item" onclick="openChatByEmail('${f}')"><b>${users[f]?.username||f.split("@")[0]}</b><span>💬</span></div>`).join("")||"Add friends first";loadFriends();loadFeed(users);}
+window.openChatByEmail=async(email)=>{const u=(await getDoc(doc(db,"users",email))).data();openChat(email,u.username)};
+$("openChatBtn").onclick=async()=>{const t=await findUser($("chatUser").value.trim());if(!t)return alert("Username not found");if(!myFriends.includes(t.email))return alert("Add as friend first");openChat(t.email,t.username)};
+function openChat(email,name){curChat=[auth.currentUser.email,email].sort().join("_");$("chatBox").classList.remove("hidden");$("chatTitle").textContent="Chat with "+name;if(unsub)unsub();const q=query(collection(db,"messages"),where("chatId","==",curChat),orderBy("createdAt"));unsub=onSnapshot(q,snap=>{const box=$("msgs");box.innerHTML="";snap.forEach(d=>{const m=d.data();const isMe=m.email===auth.currentUser.email;const div=document.createElement("div");div.className="bubble"+(isMe?" me":"");div.textContent=(isMe?"You: ":""+(m.username||"Friend")+": ")+m.text;box.appendChild(div)});box.scrollTop=box.scrollHeight;});}
+$("sendBtn").onclick=async()=>{const t=$("chatInput").value.trim();if(!t||!curChat)return;await addDoc(collection(db,"messages"),{chatId:curChat,text:t,email:auth.currentUser.email,username:myUser.username,createdAt:serverTimestamp()});$("chatInput").value="";};
+$("postFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{postData=r.result;postType=f.type.startsWith("video")?"video":"image"};r.readAsDataURL(f)};
+$("postBtn").onclick=async()=>{await addDoc(collection(db,"posts"),{email:auth.currentUser.email,username:myUser.username,profilePic:myUser.profilePic,caption:$("caption").value,media:postData,mediaType:postType,createdAt:serverTimestamp()});$("caption").value="";postData="";alert("Posted! Friends only");};
+function loadFeed(users){onSnapshot(query(collection(db,"posts"),orderBy("createdAt","desc")),snap=>{const allowed=[...myFriends,auth.currentUser.email];$("feedList").innerHTML="";snap.forEach(d=>{const p=d.data();if(!allowed.includes(p.email))return;const div=document.createElement("div");div.className="card";let media="";if(p.media)media=p.mediaType=="video"?`<video src="${p.media}" controls style="width:100%"></video>`:`<img src="${p.media}" style="width:100%;border-radius:12px">`;div.innerHTML=`<b>${p.username||"Friend"}</b><small> • Friends only 🔒</small><p>${p.caption||""}</p>${media}`;$("feedList").appendChild(div)});});}
+onAuthStateChanged(auth,async(u)=>{if(u){$("auth").classList.add("hidden");$("main").classList.remove("hidden");await ensureUser(u);loadAll();}else{$("auth").classList.remove("hidden");$("main").classList.add("hidden");}});
+</script></body></html>
