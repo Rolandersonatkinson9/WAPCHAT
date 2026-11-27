@@ -1,16 +1,15 @@
 {
-  "name": "wapchat",
-  "version": "1.0.0",
-  "private": true,
-  "description": "WAPCHAT Android social messaging app",
-  "scripts": {
-    "build": "echo WAPCHAT build ready"
-  },
-  "dependencies": {
-    "@capacitor/android": "^7.4.3",
-    "@capacitor/core": "^7.4.3"
-  },
-  "devDependencies": {
-    "@capacitor/cli": "^7.4.3"
-  }
+  "name": "WAPCHAT",
+  "short_name": "WAPCHAT",
+  "start_url": "/WAPCHAT/",
+  "display": "standalone",
+  "background_color": "#08060f",
+  "theme_color": "#7c3aed",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/733/733585.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
