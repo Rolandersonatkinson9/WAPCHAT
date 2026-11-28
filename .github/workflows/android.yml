@@ -29,7 +29,18 @@ jobs:
       - name: Add Camera and Mic Permission
         run: |
           FILE=android/app/src/main/AndroidManifest.xml
-                    python3 -c "p='android/app/src/main/AndroidManifest.xml'; t=open(p).read(); perms=['CAMERA','RECORD_AUDIO','MODIFY_AUDIO_SETTINGS','POST_NOTIFICATIONS','VIBRATE','FOREGROUND_SERVICE']; s=''; [exec(\"s+=f'    <uses-permission android:name=\\\"android.permission.{x}\\\" />\\n'\") for x in perms if f'android.permission.{x}' not in t]; t=t.replace('<application', s+'    <application') if s else t; open(p,'w').write(t); print('ADDED:',s)"
+             - name: Add Camera and Mic Permission
+        run: |
+          python3 << 'PYEOF'
+          p = 'android/app/src/main/AndroidManifest.xml'
+          t = open(p).read()
+          for perm in ['CAMERA','RECORD_AUDIO','MODIFY_AUDIO_SETTINGS','POST_NOTIFICATIONS','VIBRATE','FOREGROUND_SERVICE']:
+              tag = f'<uses-permission android:name="android.permission.{perm}" />'
+              if perm not in t:
+                  t = t.replace('<application', tag + '\n    <application', 1)
+          open(p,'w').write(t)
+          print("OK - Permissions Added")
+          PYEOF             
           cat $FILE
       - name: Build APK
         run: |
