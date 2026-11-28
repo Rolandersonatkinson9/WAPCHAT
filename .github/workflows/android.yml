@@ -22,7 +22,7 @@ jobs:
       - name: Add Notification Permission
         run: |
           FILE=android/app/src/main/AndroidManifest.xml
-          grep -q POST_NOTIFICATIONS $FILE || sed -i 's|<application|<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />\n    <uses-permission android:name="android.permission.VIBRATE" />\n    <application|' $FILE
+                  grep -q POST_NOTIFICATIONS $FILE || sed -i 's|<application|<uses-permission android:name="android.permission.POST_NOTIFICATIONS" />\n    <uses-permission android:name="android.permission.VIBRATE" />\n    <application|' $FILE || true  
       - name: Build APK
         run: |
           cd android
